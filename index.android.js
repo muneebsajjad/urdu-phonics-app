@@ -62,7 +62,7 @@ class BootStrapApp extends Component {
                                  {   return (<Text style={ styles.title }>Learn Urdu App</Text>
                                 )},
                                 }}
-                        style={{backgroundColor: '#26A69A'}}        
+                        style={{backgroundColor: '#68c8ed'}}        
                 />
             }
             
