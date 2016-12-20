@@ -1,0 +1,5 @@
+rootProject.name = 'UrduLearn'
+//rootProject.projectDir = 'UrduLearn'
+include ':app'
+include ':RNSound', ':app'
+project(':RNSound').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sound/android')
