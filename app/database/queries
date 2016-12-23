@@ -1,0 +1,13 @@
+CREATE TABLE SCOREBOARD(
+   ID INTEGER PRIMARY KEY   AUTOINCREMENT,
+   STUDENT_ID      INT    NOT NULL,
+   SCORE           INT     NOT NULL
+   );
+
+
+====================================
+
+DROP TABLE urdu_phonics.COMPANY;
+====================================
+INSERT INTO SCOREBOARD (STUDENT_NAME,SCORE)
+VALUES ( 'Paul', 32 );

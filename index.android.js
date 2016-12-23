@@ -17,9 +17,16 @@ import {
 import LandingPage from './app/components/LandingPage';
 import PlayGame from './app/components/PlayGame';
 import LearnUrdu from './app/components/LearnUrdu';
-import LetterDetail from './app/components/LetterDetail';
+import LetterDetail from './app/components/LetterDetail'
 import Globals from './app/global_helpers/Globals';
+import {insertData} from './app/database/DAL';
 
+/*var objX = {
+  STUDENT_ID : "ali",
+  SCORE : 89
+}
+
+insertData(objX,'SCOREBOARD');*/
 
 class BootStrapApp extends Component {
           

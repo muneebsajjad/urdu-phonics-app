@@ -4,6 +4,7 @@ import { View, Text, Navigator,TouchableHighlight } from 'react-native';
 module.exports = {
   STORE_KEY: 'a56z0fzrNpl^2',
   BASE_URL: 'http://someurl.com',
+  SCORE_POINTS: 10,    
   URDU_STRINGS:{
     'very_good':"شاباش",
     'correct_message':"اپ نی درست حرف کا انتخاب کیا"  
