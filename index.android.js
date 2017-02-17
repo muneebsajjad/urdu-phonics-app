@@ -11,7 +11,8 @@ import {
   Text,
   View,
   Navigator,
-  TouchableHighlight
+  TouchableHighlight,
+  BackAndroid
 } from 'react-native';
 
 import LandingPage from './app/components/LandingPage';
@@ -29,8 +30,8 @@ import {insertData} from './app/database/DAL';
 insertData(objX,'SCOREBOARD');*/
 
 class BootStrapApp extends Component {
-          
     
+  
     renderScene(route, navigator){
              
         if(route.name == 'LandingPage'){
@@ -66,7 +67,7 @@ class BootStrapApp extends Component {
                                  { return (<Text></Text>
                                 )},
                     Title: (route, navigator, index, navState) => 
-                                 {   return (<Text style={ styles.title }>Learn Urdu App</Text>
+                                 {   return (<Text style={ styles.title }>Learn Urdu</Text>
                                 )},
                                 }}
                         style={{backgroundColor: '#68c8ed'}}        
@@ -89,7 +90,7 @@ var styles = StyleSheet.create({
   leftNavButtonText: {
   	fontSize: 16,
     marginLeft:13,
-    marginTop:2,
+    marginTop:10,
       fontWeight: '500',
   },
   rightNavButtonText: {
@@ -104,8 +105,8 @@ var styles = StyleSheet.create({
   title: {
     fontWeight: '500',
     fontFamily:'Lobster',  
-  	marginTop:4,
-    marginLeft:40,  
+  	marginTop:10,
+    marginLeft:60,  
     fontSize:16,
     textAlignVertical: 'center' 
   },

@@ -25,42 +25,55 @@ export default class LandingPage extends Component {
 }
 
 var Landing_styles = StyleSheet.create({
-  learn: {
-  	margin:5,width: 170, height: 170,alignItems:'center',justifyContent:'center'
-  },
-  play:{
-    margin:5,width: 170, height: 170,alignItems:'center',justifyContent:'center'  
-  },
-  play_text:{
-    fontWeight: '500',
-      marginTop: 0,
-    fontFamily:'Lobster',  
-  	marginTop:4,
-    fontSize:16,
-    textAlignVertical:'center',
-    textAlign:'center',
-  },    
-  learn_text:{
-    fontWeight: '500',
-      marginTop: 0,
-    fontFamily:'Lobster',  
-  	marginTop:4,
-    fontSize:16,
-    textAlignVertical:'center',
-    textAlign:'center',
-  },
+    learn: {
+        margin: 5,
+        width: 170,
+        height: 170,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    play: {
+        margin: 5,
+        width: 170,
+        height: 170,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    play_text: {
+        fontWeight: '500',
+        marginTop: 0,
+        fontFamily: 'Lobster',
+        marginTop: 4,
+        fontSize: 16,
+        textAlignVertical: 'center',
+        textAlign: 'center',
+    },
+    learn_text: {
+        fontWeight: '500',
+        marginTop: 0,
+        fontFamily: 'Lobster',
+        marginTop: 4,
+        fontSize: 16,
+        textAlignVertical: 'center',
+        textAlign: 'center',
+    },
     backgroundImage: {
-    flex: 1,
-    flexDirection: 'row', 
-    justifyContent: 'center',
-    alignItems: 'center' ,
-    width: null,
-    height: null,
-    resizeMode: 'cover'
-  },
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: null,
+        height: null,
+        resizeMode: 'cover'
+    },
     main_container: {
-   flex: 1,backgroundColor: 'gainsboro', flexDirection: 'row', justifyContent: 'center',alignItems: 'center'
-  }          
+        flex: 1,
+        backgroundColor: 'gainsboro',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 })
+
 
 //AppRegistry.registerComponent('UrduLearn', () => LandingPage);

@@ -20,19 +20,21 @@ export default class PlayGame extends Component {
                             modalVisible: false,
                          };  
             this.RANDOM_SELECTED_LETTER = Globals.URDU_ALPHABETS[Math.floor(Math.random()*Globals.URDU_ALPHABETS.length)];  
+             playSelectedLetter(this.RANDOM_SELECTED_LETTER.sound_name);       
           }
-        
+    
             openModal = () => {
               this.setState({modalVisible: true});
            }
            closeModal = () => {
               this.setState({modalVisible: false});
            }
+           
         navigate(routName){
         this.props.navigator.push({
              name:  routName
-        })
-    }
+                })
+            }
         
     onPressButton(chosenLetter,correctLetter) {
         //alert(correctLetter.name+"You tapped the button!"+chosenLetter);
@@ -41,27 +43,14 @@ export default class PlayGame extends Component {
             playSelectedLetter('correct_sound');      
             this.state.LastResult = true;
             this.RANDOM_SELECTED_LETTER = Globals.URDU_ALPHABETS[Math.floor(Math.random()*Globals.URDU_ALPHABETS.length)];  
-            this.setState({ scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS });
-           /* Alert.alert(
-                  Globals.URDU_STRINGS.very_good,
-                  Globals.URDU_STRINGS.correct_message,
-                  [
-                    {
-                    text: 'OK', onPress: () =>{ 
-                     this.RANDOM_SELECTED_LETTER = Globals.URDU_ALPHABETS[Math.floor(Math.random()*Globals.URDU_ALPHABETS.length)];  
-                     this.setState({ scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS });
-                    //console.log("<<<<<<<<<<<<<<<<<<<correct Answer>>>>>>>>>>>>>>>>"+this.state.scoreCount);    
-                     //this.forceUpdate();
-                        }
-                    },
-                  ]
-                )*/
+            this.setState({ scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS });          
         }else{
-                //all lifes are consumed
+                //lost life
                 this.state.LastResult = false;
                 this.setState({ lifeCount: --this.state.lifeCount });
             
-            if(this.state.lifeCount >= 0){
+            if(this.state.lifeCount <= 0){
+                playSelectedLetter('result');
                 this.openModal();    
             }else{
                 playSelectedLetter('wrong_sound');
@@ -94,8 +83,8 @@ export default class PlayGame extends Component {
   render() {
     var randomSelectedLetter = this.RANDOM_SELECTED_LETTER;
     var randLetters =  shuffle(randomLetters(Globals.URDU_ALPHABETS,randomSelectedLetter));   
-    // play sound as long there are lifes  
-    if(this.state.lifeCount > 0){
+    // play new sound if last option was correct
+    if(this.state.LastResult){
                 playSelectedLetter(randomSelectedLetter.sound_name);     
             }  
     var drawLifes = this.calculateLifes();
@@ -131,8 +120,7 @@ export default class PlayGame extends Component {
                     )}
                 </View>
              <View style={{width: 0, height: 0, backgroundColor: 'skyblue'}}><Text></Text></View>             
-               <ModalBox modalVisible= {this.state.modalVisible} openModal = {this.openModal}
-            closeModal = {this.closeModal}/>   
+               <ModalBox modalVisible= {this.state.modalVisible} openModal = {this.openModal} closeModal = {this.closeModal} finalScore={this.state.scoreCount} navigator={this.props.navigator} />   
         </View>
          
         
@@ -172,7 +160,7 @@ var play_styles = StyleSheet.create({
         flex: 1,flexDirection: 'column'
     },
     score_count_text:{
-        alignSelf:'flex-end',marginRight:5,fontWeight:'900',fontSize:19,textShadowOffset:{width: 1, height: 1},color:'#f25547',textShadowColor:'#f25547'
+        alignSelf:'flex-end',marginRight:5,fontWeight:'900',fontSize:19,textShadowOffset:{width: 1, height: 1},color:'#27ae60',textShadowColor:'#2ecc71'
     }
     
 })

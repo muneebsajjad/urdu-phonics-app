@@ -41,8 +41,14 @@ export default class LearnUrdu extends Component {
 
 var learn_styles = StyleSheet.create({
   main_container: {
-            flex: 1,flexDirection: 'row',flexWrap:'wrap',alignItems:'flex-end',marginTop:52,backgroundColor: 'aliceblue'
-  }
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-end',
+    marginTop: 52,
+    backgroundColor: 'aliceblue'
+}
+
 });
 
 //AppRegistry.registerComponent('UrduLearn', () => LandingPage);
