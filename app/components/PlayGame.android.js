@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import { View, Text, Navigator,TouchableHighlight,TouchableOpacity,Alert,StyleSheet,Image } from 'react-native';
+import { View, Text, Navigator,TouchableHighlight,TouchableOpacity,Alert,StyleSheet,Image,Dimensions } from 'react-native';
 import { randomLetters,shuffle,playSelectedLetter,getLetterImage } from '../../app/global_helpers/Helpers'
 import Globals from '../../app/global_helpers/Globals';
 import { default as Sound } from 'react-native-sound';
@@ -108,9 +108,10 @@ export default class PlayGame extends Component {
                 <View style={play_styles.option_box}>
                     
                      {Object.keys(randLetters).map((key,index) => {
+                           var screenWidth = ((Dimensions.get('window').width)/2)-5;                           
                            var randomColor = Globals.COLOR[Math.floor(Math.random()*Globals.COLOR.length)];  //will be used when app is MVP
                            return <TouchableOpacity key={index} letterName={randLetters[key].name} onPress={this.onPressButton.bind(this,randLetters[key].name,randomSelectedLetter)} > 
-                                        <View style={{margin:5,borderRadius:12,width: 170, height: 170, backgroundColor: randomColor,alignItems:'center',justifyContent:'center'}} key={index}>
+                                        <View style={{margin:2,borderRadius:12,flex:1,width: screenWidth, backgroundColor: randomColor,alignItems:'center',justifyContent:'center'}} key={index}>
                                             <Image 
                                                  style={{width: 160, height: 160,resizeMode: 'contain'}}
                                                 source={getLetterImage(randLetters[key].name)} />
@@ -118,8 +119,7 @@ export default class PlayGame extends Component {
                                   </TouchableOpacity>                                                   
                         }
                     )}
-                </View>
-             <View style={{width: 0, height: 0, backgroundColor: 'skyblue'}}><Text></Text></View>             
+                </View>                        
                <ModalBox modalVisible= {this.state.modalVisible} openModal = {this.openModal} closeModal = {this.closeModal} finalScore={this.state.scoreCount} navigator={this.props.navigator} />   
         </View>
          
