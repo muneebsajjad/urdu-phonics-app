@@ -4,6 +4,7 @@ import { randomLetters,shuffle,playSelectedLetter,getLetterImage } from '../../a
 import Globals from '../../app/global_helpers/Globals';
 import { default as Sound } from 'react-native-sound';
 import ModalBox from '../../app/components/ModalBox';
+import {insertData,getData} from '../../app/database/DAL';
 
 export default class PlayGame extends Component {
         
@@ -38,9 +39,10 @@ export default class PlayGame extends Component {
         
     onPressButton(chosenLetter,correctLetter) {
         //alert(correctLetter.name+"You tapped the button!"+chosenLetter);
-        if(chosenLetter == correctLetter.name){
-            
+        let isCorrect = 0;
+        if(chosenLetter == correctLetter.name){            
             playSelectedLetter('correct_sound');      
+            isCorrect = 1;
             this.state.LastResult = true;
             this.RANDOM_SELECTED_LETTER = Globals.URDU_ALPHABETS[Math.floor(Math.random()*Globals.URDU_ALPHABETS.length)];  
             this.setState({ scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS });          
@@ -55,10 +57,18 @@ export default class PlayGame extends Component {
             }else{
                 playSelectedLetter('wrong_sound');
             }
-                        
-            
             //console.log("<<<<<<<<<<<<<<<<<<<wrong Answer>>>>>>>>>>>>>>>>"+this.state.lifeCount); 
         }
+          var objX = {
+                        DEVICE_ID : 'FPABD8EF-62FC-4ECB-B2F5-92C9E79AC7F9',
+                        SOUND_PLAYED : correctLetter.name,
+                        SOUND_SELECTED : chosenLetter,
+                        STATUS : isCorrect,
+                        SCORE : this.state.scoreCount,
+                        LIVES : this.state.lifeCount
+                      }
+            insertData(objX,'GAME_DATA');
+            getData();          
     }
     
     repeatSound(){

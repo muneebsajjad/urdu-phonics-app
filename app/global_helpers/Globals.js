@@ -38,7 +38,7 @@ module.exports = {
                           
                       },{
                         "name": "be",
-                        "sound_name": "be",  
+                        "sound_name": "bay",  
                         "img_other":{
                             img1:"N/A"
                         },
@@ -46,7 +46,7 @@ module.exports = {
                           
                       },{
                         "name": "pe",
-                        "sound_name": "pe",    
+                        "sound_name": "pay",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -54,7 +54,7 @@ module.exports = {
                           
                       },{
                         "name": "te",
-                          "sound_name": "te",  
+                          "sound_name": "tay",  
                         "img_other":{
                             img1:"N/A"
                         },
@@ -62,7 +62,7 @@ module.exports = {
                           
                       },{
                         "name": "ṭe",
-                        "sound_name": "tay",    
+                        "sound_name": "tey",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -71,7 +71,7 @@ module.exports = {
                       },
                       {
                         "name": "s̱e",
-                        "sound_name": "tay",    
+                        "sound_name": "sin",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -80,7 +80,7 @@ module.exports = {
                       },
                       {
                         "name": "jīm",
-                        "sound_name": "tay",    
+                        "sound_name": "jim",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -89,7 +89,7 @@ module.exports = {
                       },
                       {
                         "name": "cīm",
-                        "sound_name": "tay",    
+                        "sound_name": "chim",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -98,7 +98,7 @@ module.exports = {
                       },
                       {
                         "name": "baṛīḥa",
-                        "sound_name": "tay",    
+                        "sound_name": "bariha",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -107,7 +107,7 @@ module.exports = {
                       },
                       {
                         "name": "kha",
-                        "sound_name": "tay",    
+                        "sound_name": "kha",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -116,7 +116,7 @@ module.exports = {
                       },
                       {
                         "name": "dāl",
-                        "sound_name": "tay",    
+                        "sound_name": "dal",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -125,7 +125,7 @@ module.exports = {
                       },
                       {
                         "name": "ḍāl",
-                        "sound_name": "tay",    
+                        "sound_name": "dall",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -134,7 +134,7 @@ module.exports = {
                       },
                       {
                         "name": "ẕāl",
-                        "sound_name": "tay",    
+                        "sound_name": "ze",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -143,7 +143,7 @@ module.exports = {
                       },
                       {
                         "name": "re",
-                        "sound_name": "tay",    
+                        "sound_name": "re",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -152,7 +152,7 @@ module.exports = {
                       },
                       {
                         "name": "ṛe",
-                        "sound_name": "tay",    
+                        "sound_name": "rre",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -161,7 +161,7 @@ module.exports = {
                       },
                       {
                         "name": "ze",
-                        "sound_name": "tay",    
+                        "sound_name": "ze",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -170,7 +170,7 @@ module.exports = {
                       },
                       {
                         "name": "zhe",
-                        "sound_name": "tay",    
+                        "sound_name": "zhe",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -179,7 +179,7 @@ module.exports = {
                       },
                       {
                         "name": "sīn",
-                        "sound_name": "tay",    
+                        "sound_name": "sin",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -188,7 +188,7 @@ module.exports = {
                       },
                       {
                         "name": "shīn",
-                        "sound_name": "tay",    
+                        "sound_name": "shin",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -197,7 +197,7 @@ module.exports = {
                       },
                       {
                         "name": "ṣwād",
-                        "sound_name": "tay",    
+                        "sound_name": "sin",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -206,7 +206,7 @@ module.exports = {
                       },
                       {
                         "name": "ẓwād",
-                        "sound_name": "tay",    
+                        "sound_name": "ze",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -224,7 +224,7 @@ module.exports = {
                       },
                       {
                         "name": "z̤oʾe",
-                        "sound_name": "tay",    
+                        "sound_name": "ze",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -242,7 +242,7 @@ module.exports = {
                       },
                       {
                         "name": "ghain",
-                        "sound_name": "tay",    
+                        "sound_name": "ghain",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -251,7 +251,7 @@ module.exports = {
                       },
                       {
                         "name": "fe",
-                        "sound_name": "tay",    
+                        "sound_name": "fe",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -260,7 +260,7 @@ module.exports = {
                       },
                       {
                         "name": "qāf",
-                        "sound_name": "tay",    
+                        "sound_name": "qaf",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -269,7 +269,7 @@ module.exports = {
                       },
                       {
                         "name": "kāf",
-                        "sound_name": "tay",    
+                        "sound_name": "kaf",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -278,7 +278,7 @@ module.exports = {
                       },
                       {
                         "name": "gāf",
-                        "sound_name": "tay",    
+                        "sound_name": "gaf",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -287,7 +287,7 @@ module.exports = {
                       },
                       {
                         "name": "lām",
-                        "sound_name": "tay",    
+                        "sound_name": "lam",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -296,7 +296,7 @@ module.exports = {
                       },
                       {
                         "name": "mīm",
-                        "sound_name": "tay",    
+                        "sound_name": "mim",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -305,7 +305,7 @@ module.exports = {
                       },
                       {
                         "name": "nūn",
-                        "sound_name": "tay",    
+                        "sound_name": "nun",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -314,7 +314,7 @@ module.exports = {
                       },
                       {
                         "name": "choṭīhe",
-                        "sound_name": "tay",    
+                        "sound_name": "bariha",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -323,7 +323,7 @@ module.exports = {
                       },
                       {
                         "name": "wāʾo",
-                        "sound_name": "tay",    
+                        "sound_name": "wao",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -332,7 +332,7 @@ module.exports = {
                       },
                       {
                         "name": "choṭīye",
-                        "sound_name": "tay",    
+                        "sound_name": "chotiye",    
                         "img_other":{
                             img1:"N/A"
                         },
@@ -341,7 +341,7 @@ module.exports = {
                       },
                       {
                         "name": "baṛīye",
-                        "sound_name": "tay",    
+                        "sound_name": "chotiye",    
                         "img_other":{
                             img1:"N/A"
                         },

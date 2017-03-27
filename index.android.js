@@ -20,14 +20,18 @@ import PlayGame from './app/components/PlayGame';
 import LearnUrdu from './app/components/LearnUrdu';
 import LetterDetail from './app/components/LetterDetail'
 import Globals from './app/global_helpers/Globals';
-import {insertData} from './app/database/DAL';
+/*import {insertData,getData} from './app/database/DAL';
 
-/*var objX = {
-  STUDENT_ID : "ali",
-  SCORE : 89
+var objX = {
+  DEVICE_ID : 'FPABD8EF-62FC-4ECB-B2F5-92C9E79AC7F9',
+  SOUND_PLAYED : 'aba',
+  SOUND_SELECTED : 'apa',
+  STATUS : 0,
+  SCORE : 20,
+  LIVES : 3
 }
-
-insertData(objX,'SCOREBOARD');*/
+insertData(objX,'GAME_DATA');
+getData();*/
 
 class BootStrapApp extends Component {
     
