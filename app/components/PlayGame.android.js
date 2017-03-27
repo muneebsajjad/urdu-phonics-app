@@ -5,6 +5,7 @@ import Globals from '../../app/global_helpers/Globals';
 import { default as Sound } from 'react-native-sound';
 import ModalBox from '../../app/components/ModalBox';
 import {insertData,getData} from '../../app/database/DAL';
+var DeviceInfo = require('react-native-device-info');
 
 export default class PlayGame extends Component {
         
@@ -60,7 +61,7 @@ export default class PlayGame extends Component {
             //console.log("<<<<<<<<<<<<<<<<<<<wrong Answer>>>>>>>>>>>>>>>>"+this.state.lifeCount); 
         }
           var objX = {
-                        DEVICE_ID : 'FPABD8EF-62FC-4ECB-B2F5-92C9E79AC7F9',
+                        DEVICE_ID : DeviceInfo.getUniqueID(),
                         SOUND_PLAYED : correctLetter.name,
                         SOUND_SELECTED : chosenLetter,
                         STATUS : isCorrect,
