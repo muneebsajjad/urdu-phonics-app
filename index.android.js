@@ -20,18 +20,11 @@ import PlayGame from './app/components/PlayGame';
 import LearnUrdu from './app/components/LearnUrdu';
 import LetterDetail from './app/components/LetterDetail'
 import Globals from './app/global_helpers/Globals';
-/*import {insertData,getData} from './app/database/DAL';
+import {insertData,getData} from './app/database/DAL';
+import {syncUserLog} from './app/services/sync';
+import BackgroundJob from "react-native-background-job";
 
-var objX = {
-  DEVICE_ID : 'FPABD8EF-62FC-4ECB-B2F5-92C9E79AC7F9',
-  SOUND_PLAYED : 'aba',
-  SOUND_SELECTED : 'apa',
-  STATUS : 0,
-  SCORE : 20,
-  LIVES : 3
-}
-insertData(objX,'GAME_DATA');
-getData();*/
+syncUserLog();
 
 class BootStrapApp extends Component {
     

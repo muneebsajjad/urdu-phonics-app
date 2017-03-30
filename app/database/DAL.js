@@ -59,12 +59,30 @@ export function getData() {
 
             // Get rows with Web SQL Database spec compliance.
 
-            var len = results.rows.length;
+            let len = results.rows.length;
+            let gameLogs = new Array();
             console.log("Query completed>>>>>>>>>"+len);
             for (let i = 0; i < len; i++) {
                 let row = results.rows.item(i);
-                console.log(`ID: ${row.ID},DEVICE_ID: ${row.DEVICE_ID}, SOUND_PLAYED: ${row.SOUND_PLAYED}, SOUND_SELECTED: ${row.SOUND_SELECTED}, TIMESTAMP: ${row.TIMESTAMP}, STATUS: ${row.STATUS}, SCORE: ${row.SCORE}, LIVES: ${row.LIVES}`);
+                gameLogs.push(row);
+                //console.log(JSON.stringify(row))
+                // console.log(`ID: ${row.ID},DEVICE_ID: ${row.DEVICE_ID}, SOUND_PLAYED: ${row.SOUND_PLAYED}, SOUND_SELECTED: ${row.SOUND_SELECTED}, TIMESTAMP: ${row.TIMESTAMP}, STATUS: ${row.STATUS}, SCORE: ${row.SCORE}, LIVES: ${row.LIVES}`);
             }
+
+            fetch('http://10.50.75.132:3000/users/get_sync_data', {
+                    method: 'POST',
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(gameLogs)
+                  }).then((response) => response.json())
+                      .then((responseJson) => {
+                        console.log(JSON.stringify(responseJson));
+                      })
+                      .catch((error) => {
+                        console.error(error);
+                      });
 
             // Alternatively, you can use the non-standard raw method.
 
