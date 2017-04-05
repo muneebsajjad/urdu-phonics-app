@@ -58,21 +58,39 @@ export function getData() {
             console.log("Query completed");
 
             // Get rows with Web SQL Database spec compliance.
-
-            var len = results.rows.length;
+            let len = results.rows.length;
+            if(len > 0){
+            let gameLogs = new Array();
             console.log("Query completed>>>>>>>>>"+len);
             for (let i = 0; i < len; i++) {
                 let row = results.rows.item(i);
-                console.log(`ID: ${row.ID},DEVICE_ID: ${row.DEVICE_ID}, SOUND_PLAYED: ${row.SOUND_PLAYED}, SOUND_SELECTED: ${row.SOUND_SELECTED}, TIMESTAMP: ${row.TIMESTAMP}, STATUS: ${row.STATUS}, SCORE: ${row.SCORE}, LIVES: ${row.LIVES}`);
+                gameLogs.push(row);
+                //console.log(JSON.stringify(row))
+                // console.log(`ID: ${row.ID},DEVICE_ID: ${row.DEVICE_ID}, SOUND_PLAYED: ${row.SOUND_PLAYED}, SOUND_SELECTED: ${row.SOUND_SELECTED}, TIMESTAMP: ${row.TIMESTAMP}, STATUS: ${row.STATUS}, SCORE: ${row.SCORE}, LIVES: ${row.LIVES}`);
             }
 
-            // Alternatively, you can use the non-standard raw method.
-
-            /*
-              let rows = results.rows.raw(); // shallow copy of rows Array
-
-              rows.map(row => console.log(`Employee name: ${row.name}, Dept Name: ${row.deptName}`));
-            */
+            fetch('http://10.50.75.145:3000/users/get_sync_data', {
+                    method: 'POST',
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(gameLogs)
+                  }).then((response) => response.json())
+                      .then((responseJson) => {
+                        console.log(JSON.stringify(responseJson.returnIds));
+                            db.transaction((tx) => {
+                               tx.executeSql(`DELETE FROM GAME_DATA WHERE ID IN (${responseJson.returnIds})`, [], (tx, results) => {
+                                  console.log("Records deleted successfully");
+                               })
+                            })
+                      })
+                      .catch((error) => {
+                        console.error(error);
+                      });
+           }else{
+            console.log('No data to sync');
+           }           
         });
     });
 }

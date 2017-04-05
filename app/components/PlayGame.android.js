@@ -68,8 +68,7 @@ export default class PlayGame extends Component {
                         SCORE : this.state.scoreCount,
                         LIVES : this.state.lifeCount
                       }
-            insertData(objX,'GAME_DATA');
-            getData();          
+            insertData(objX,'GAME_DATA');         
     }
     
     repeatSound(){
