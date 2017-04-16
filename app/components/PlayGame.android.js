@@ -14,7 +14,8 @@ export default class PlayGame extends Component {
          //static RANDOM_SELECTED_LETTER =Globals.URDU_ALPHABETS[Math.floor(Math.random()*Globals.URDU_ALPHABETS.length)]; ;
           constructor(props) {
             super(props);
-            this.state = { 
+            this.state = {
+                            SessionId :  Math.floor(Math.random()*25),
                             LastResult : false,
                             lifeCount : 4,
                             totalLifeCount : 4,
@@ -61,6 +62,7 @@ export default class PlayGame extends Component {
             //console.log("<<<<<<<<<<<<<<<<<<<wrong Answer>>>>>>>>>>>>>>>>"+this.state.lifeCount); 
         }
           var objX = {
+                        SESSION_ID : this.state.SessionId,
                         DEVICE_ID : DeviceInfo.getUniqueID(),
                         SOUND_PLAYED : correctLetter.name,
                         SOUND_SELECTED : chosenLetter,
@@ -68,6 +70,7 @@ export default class PlayGame extends Component {
                         SCORE : this.state.scoreCount,
                         LIVES : this.state.lifeCount
                       }
+             console.log(">>>>>>>>>>>>>>>>>>>"+this.state.SessionId)         
             insertData(objX,'GAME_DATA');         
     }
     
