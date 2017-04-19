@@ -12,7 +12,8 @@ import {
   View,
   Navigator,
   TouchableHighlight,
-  BackAndroid
+  BackAndroid,
+  AppState
 } from 'react-native';
 
 import LandingPage from './app/components/LandingPage';
@@ -28,7 +29,15 @@ syncUserLog();
 
 class BootStrapApp extends Component {
     
-  
+    
+      componentDidMount() { AppState.addEventListener('change', this._handleAppStateChange); }
+     componentWillUnmount() { AppState.removeEventListener('change', this._handleAppStateChange); }
+
+    _handleAppStateChange = (nextAppState) => {
+            if(nextAppState =='background'){
+                getData();
+            }
+          }
     renderScene(route, navigator){
              
         if(route.name == 'LandingPage'){
@@ -64,10 +73,12 @@ class BootStrapApp extends Component {
                                  { return (<Text></Text>
                                 )},
                     Title: (route, navigator, index, navState) => 
-                                 {   return (<Text style={ styles.title }>Learn Urdu</Text>
+                                 {   return (<Text >Learn Urdu</Text>
                                 )},
                                 }}
-                        style={{backgroundColor: '#68c8ed'}}        
+                        // style={{backgroundColor: '#68c8ed'}}        
+                        style = {styles.navigationBar}
+                         navigationStyles={Navigator.NavigationBar.StylesIOS}
                 />
             }
             
@@ -85,19 +96,16 @@ var styles = StyleSheet.create({
     marginTop:100
   },
   leftNavButtonText: {
-  	fontSize: 16,
     marginLeft:13,
-    marginTop:10,
-      fontWeight: '500',
   },
   rightNavButtonText: {
   	fontSize: 18,
     marginRight:13,
     marginTop:2
   },
-  nav: {
-  	height: 50,
-    backgroundColor: '#f5deb3'
+  navigationBar: {
+     backgroundColor: '#DCDCDC',
+     height:55
   },
   title: {
     fontWeight: '500',

@@ -5,8 +5,8 @@ import Globals from '../../app/global_helpers/Globals';
 import { default as Sound } from 'react-native-sound';
 import ModalBox from '../../app/components/ModalBox';
 import {insertData,getData} from '../../app/database/DAL';
-var DeviceInfo = require('react-native-device-info');
-
+import uuid from 'react-native-uuid';
+import DeviceInfo from 'react-native-device-info';
 export default class PlayGame extends Component {
         
         //var selectedLetter = Globals.URDU_ALPHABETS[Math.floor(Math.random()*Globals.URDU_ALPHABETS.length)];  //will be used when app is MVP
@@ -15,17 +15,24 @@ export default class PlayGame extends Component {
           constructor(props) {
             super(props);
             this.state = {
-                            SessionId :  Math.floor(Math.random()*25),
+                            SessionId :  uuid.v4(),
                             LastResult : false,
                             lifeCount : 4,
                             totalLifeCount : 4,
                             scoreCount : 0,
-                            modalVisible: false,
+                            modalVisible: false
                          };  
+             // this.RANDOM_SELECTED_LETTER = Globals.URDU_ALPHABETS[15];               
             this.RANDOM_SELECTED_LETTER = Globals.URDU_ALPHABETS[Math.floor(Math.random()*Globals.URDU_ALPHABETS.length)];  
              playSelectedLetter(this.RANDOM_SELECTED_LETTER.sound_name);       
           }
-    
+
+          _handleAppStateChange = (nextAppState) => {
+            if(nextAppState =='background'){
+                getData();
+            }
+          }
+
             openModal = () => {
               this.setState({modalVisible: true});
            }
@@ -98,6 +105,7 @@ export default class PlayGame extends Component {
     var randLetters =  shuffle(randomLetters(Globals.URDU_ALPHABETS,randomSelectedLetter));   
     // play new sound if last option was correct
     if(this.state.LastResult){
+                console.log('i am in render');
                 playSelectedLetter(randomSelectedLetter.sound_name);     
             }  
     var drawLifes = this.calculateLifes();

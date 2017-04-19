@@ -16,8 +16,12 @@ export default class LearnUrdu extends Component {
         })
     }
     
-    
-    
+     _handleAppStateChange = (nextAppState) => {
+            if(nextAppState =='background'){
+                getData();
+            }
+          }
+          
   render() {
     return (  
         <ScrollView>    

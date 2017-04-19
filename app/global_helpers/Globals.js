@@ -233,7 +233,7 @@ module.exports = {
                       },
                       {
                         "name": "ʿain",
-                        "sound_name": "tay",    
+                        "sound_name": "ain",    
                         "img_other":{
                             img1:"N/A"
                         },
