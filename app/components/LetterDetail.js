@@ -11,6 +11,12 @@ export default class LearnUrdu extends Component {
              name:  routName
         })
     }
+
+     _handleAppStateChange = (nextAppState) => {
+            if(nextAppState =='background'){
+                getData();
+            }
+          }
     
  repeatSound(letterObj){
         playSelectedLetter(letterObj.sound_name); 

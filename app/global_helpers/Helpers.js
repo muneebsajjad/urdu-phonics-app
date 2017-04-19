@@ -1,38 +1,78 @@
 import React, { Component } from 'react'; 
 import { View, Text, Navigator,TouchableHighlight } from 'react-native';
 import { default as Sound } from 'react-native-sound';
-
+var gSoundInstance;
 
 
 export function randomLetters(data,selLetter){
     var tmpArray = [];
     var tmpLetters = data;
     
+    var matchingLetters = new Set(['ze','ẓwād','z̤oʾe','ẕāl']); //create set of matching letters
+    if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
+        matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
+        tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
+    }
+
+    var matchingLetters = new Set(['baṛīḥa','choṭīhe']); //create set of matching letters
+    if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
+        matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
+        tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
+    }
+
+    var matchingLetters = new Set(['baṛīye','choṭīye']); //create set of matching letters
+    if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
+        matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
+        tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
+    }
+
+    var matchingLetters = new Set(['qāf','kāf']); //create set of matching letters
+    if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
+        matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
+        tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
+    }
+
+    var matchingLetters = new Set(['te','t̤oʾe']); //create set of matching letters
+    if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
+        matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
+        tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
+    }
+
+    var matchingLetters = new Set(['s̱e','sīn','ṣwād']); //create set of matching letters
+    if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
+        matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
+        tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
+    }
+
     //remove selected letter
     var toDelete = new Set([selLetter.name]);
-    var tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
+        tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
     tmpArray.push(selLetter);
     
+    //matching set
+    
+    // console.log('>>>>>>@@>>>>>>>>>>'+JSON.stringify(tmpLetters))
+
     var letter1 = tmpLetters[Math.floor(Math.random()*tmpLetters.length)];
      tmpArray.push(letter1);
     
     //deleting obj from the tmpLetters array
     var toDelete = new Set([letter1.name]);
-    var tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
+        tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
     
     var letter2 = tmpLetters[Math.floor(Math.random()*tmpLetters.length)];
       tmpArray.push(letter2);
     
      //deleting obj from the tmpLetters array
     var toDelete = new Set([letter2.name]);
-    var tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
+        tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
     
     var letter3 = tmpLetters[Math.floor(Math.random()*tmpLetters.length)];
       tmpArray.push(letter3);
     
      //deleting obj from the tmpLetters array
     var toDelete = new Set([letter3.name]);
-    var tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
+        tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
     
     return tmpArray;
     
@@ -52,10 +92,13 @@ export function HelloChandu() {
               if (error) {                  
                 console.log('failed to load the sound', error);
               } else { // loaded successfully
+                gSoundInstance = letterSound
                   console.log("<<<<<<<<<<<<<<<<< "+letterSound.isLoaded());
                 console.log('duration in seconds: ' + letterSound.getDuration() +
                     'number of channels: ' + letterSound.getNumberOfChannels());
                         // Play the sound with an onEnd callback        
+                        gSoundInstance.stop();
+                        letterSound.setVolume(1)
                         letterSound.play((success) => {
                           if (success) {              
                             console.log('successfully finished playing'+'--->'+data);

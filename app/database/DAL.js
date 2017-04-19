@@ -41,7 +41,7 @@ export function insertData(data,table){
             console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
         },
         function(tx, error) {
-             alert('INSERT error: ' + error.message);
+             //alert('INSERT error: ' + error.message);
             console.log('INSERT error: ' + error.message);
         });
     }, function(error) {
@@ -69,7 +69,7 @@ export function getData() {
                 // console.log(`ID: ${row.ID},DEVICE_ID: ${row.DEVICE_ID}, SOUND_PLAYED: ${row.SOUND_PLAYED}, SOUND_SELECTED: ${row.SOUND_SELECTED}, TIMESTAMP: ${row.TIMESTAMP}, STATUS: ${row.STATUS}, SCORE: ${row.SCORE}, LIVES: ${row.LIVES}`);
             }
 
-            fetch('http://192.168.1.6:3000/users/get_sync_data', {
+            fetch('http://104.198.94.126:3000/users/get_sync_data', {
                     method: 'POST',
                     headers: {
                       'Accept': 'application/json',
