@@ -9,6 +9,7 @@ export default class LandingPage extends Component {
     }
   render() {
     return (
+        <Image source={require('../../app/images/bg.png')} style={Landing_styles.container}>
          <View style={Landing_styles.main_container}>
              <TouchableOpacity onPress={this.navigate.bind(this,'PLayGame')}>
                 <Image source={require('../../app/images/play_game.png')} style={Landing_styles.play} />
@@ -20,6 +21,7 @@ export default class LandingPage extends Component {
              <Text style={Landing_styles.learn_text}>Learn Urdu</Text>
             </TouchableOpacity>
          </View>
+        </Image> 
     );
   }
 }
@@ -68,11 +70,19 @@ var Landing_styles = StyleSheet.create({
     },
     main_container: {
         flex: 1,
-        backgroundColor: 'gainsboro',
+        //backgroundColor: 'gainsboro',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    container: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+    backgroundColor:'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 })
 
 
