@@ -104,7 +104,9 @@ var styles = StyleSheet.create({
     marginTop:2
   },
   navigationBar: {
-     backgroundColor: '#DCDCDC',
+     backgroundColor: '#C6C8CA',
+     borderBottomWidth:1,
+     borderBottomColor: '#979797',
      height:55
   },
   title: {
