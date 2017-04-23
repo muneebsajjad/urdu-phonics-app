@@ -1,4 +1,10 @@
 rootProject.name = 'UrduLearn'
+include ':react-native-splash-screen'
+project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
+include ':react-native-background-job'
+project(':react-native-background-job').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-background-job/android')
+include ':react-native-device-info'
+project(':react-native-device-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
 //rootProject.projectDir = 'UrduLearn'
 include ':app'
 include ':RNSound', ':app'

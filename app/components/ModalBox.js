@@ -18,7 +18,7 @@ export default ModalBox = (props) => {
             animationType = {"fade"}
             transparent = {false}
             visible = {props.modalVisible}
-            onRequestClose = {() => {console.log("Modal has been closed.")}}
+            onRequestClose = {() => {props.navigator.replace({name:  'LandingPage'}); console.log("Modal has been closed.")}}
             >
             <View style = {styles.modal}>
               

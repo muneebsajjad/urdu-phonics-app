@@ -12,30 +12,47 @@ import {
   View,
   Navigator,
   TouchableHighlight,
-  BackAndroid
+  BackAndroid,
+  AppState
 } from 'react-native';
-
 import LandingPage from './app/components/LandingPage';
 import PlayGame from './app/components/PlayGame';
 import LearnUrdu from './app/components/LearnUrdu';
 import LetterDetail from './app/components/LetterDetail'
 import Globals from './app/global_helpers/Globals';
-/*import {insertData,getData} from './app/database/DAL';
+import {insertData,getData} from './app/database/DAL';
+import {syncUserLog} from './app/services/sync';
+import BackgroundJob from "react-native-background-job";
+import SplashScreen from 'react-native-splash-screen'
 
-var objX = {
-  DEVICE_ID : 'FPABD8EF-62FC-4ECB-B2F5-92C9E79AC7F9',
-  SOUND_PLAYED : 'aba',
-  SOUND_SELECTED : 'apa',
-  STATUS : 0,
-  SCORE : 20,
-  LIVES : 3
-}
-insertData(objX,'GAME_DATA');
-getData();*/
+var _navigator;
+syncUserLog();
 
 class BootStrapApp extends Component {
     
-  
+    
+      componentDidMount() { 
+        SplashScreen.hide();
+        AppState.addEventListener('change', this._handleAppStateChange);
+         BackAndroid.addEventListener('hardwareBackPress', function() {
+                      if (_navigator.getCurrentRoutes().length === 1  ) {
+                           return false;
+                        }
+                        _navigator.pop();
+                        return true;
+          });
+         }
+     componentWillUnmount() { 
+        AppState.removeEventListener('change', this._handleAppStateChange); 
+      }
+
+
+
+    _handleAppStateChange = (nextAppState) => {
+            if(nextAppState =='background'){
+                getData();
+            }
+          }
     renderScene(route, navigator){
              
         if(route.name == 'LandingPage'){
@@ -58,6 +75,7 @@ class BootStrapApp extends Component {
                     routeMapper={{ 
                                 LeftButton: (route, navigator, index, navState) => 
                                  {
+                                  _navigator = navigator;
                                          if(index > 0) {
                                           return (
                                             <TouchableHighlight
@@ -71,14 +89,16 @@ class BootStrapApp extends Component {
                                  { return (<Text></Text>
                                 )},
                     Title: (route, navigator, index, navState) => 
-                                 {   return (<Text style={ styles.title }>Learn Urdu</Text>
+                                 {   return (<Text >Learn Urdu</Text>
                                 )},
                                 }}
-                        style={{backgroundColor: '#68c8ed'}}        
+                        // style={{backgroundColor: '#68c8ed'}}        
+                        style = {styles.navigationBar}
+                         navigationStyles={Navigator.NavigationBar.StylesIOS}
                 />
             }
             
-            configureScene={(route, routeStack) =>Navigator.SceneConfigs.FloatFromBottom}
+            configureScene={(route, routeStack) =>Navigator.SceneConfigs.PushFromRight}
     />
        
     );
@@ -92,19 +112,18 @@ var styles = StyleSheet.create({
     marginTop:100
   },
   leftNavButtonText: {
-  	fontSize: 16,
     marginLeft:13,
-    marginTop:10,
-      fontWeight: '500',
   },
   rightNavButtonText: {
   	fontSize: 18,
     marginRight:13,
     marginTop:2
   },
-  nav: {
-  	height: 50,
-    backgroundColor: '#f5deb3'
+  navigationBar: {
+     backgroundColor: '#C6C8CA',
+     borderBottomWidth:1,
+     borderBottomColor: '#979797',
+     height:55
   },
   title: {
     fontWeight: '500',
