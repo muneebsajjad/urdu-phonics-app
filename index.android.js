@@ -15,7 +15,6 @@ import {
   BackAndroid,
   AppState
 } from 'react-native';
-
 import LandingPage from './app/components/LandingPage';
 import PlayGame from './app/components/PlayGame';
 import LearnUrdu from './app/components/LearnUrdu';
@@ -24,14 +23,30 @@ import Globals from './app/global_helpers/Globals';
 import {insertData,getData} from './app/database/DAL';
 import {syncUserLog} from './app/services/sync';
 import BackgroundJob from "react-native-background-job";
+import SplashScreen from 'react-native-splash-screen'
 
+var _navigator;
 syncUserLog();
 
 class BootStrapApp extends Component {
     
     
-      componentDidMount() { AppState.addEventListener('change', this._handleAppStateChange); }
-     componentWillUnmount() { AppState.removeEventListener('change', this._handleAppStateChange); }
+      componentDidMount() { 
+        SplashScreen.hide();
+        AppState.addEventListener('change', this._handleAppStateChange);
+         BackAndroid.addEventListener('hardwareBackPress', function() {
+                      if (_navigator.getCurrentRoutes().length === 1  ) {
+                           return false;
+                        }
+                        _navigator.pop();
+                        return true;
+          });
+         }
+     componentWillUnmount() { 
+        AppState.removeEventListener('change', this._handleAppStateChange); 
+      }
+
+
 
     _handleAppStateChange = (nextAppState) => {
             if(nextAppState =='background'){
@@ -60,6 +75,7 @@ class BootStrapApp extends Component {
                     routeMapper={{ 
                                 LeftButton: (route, navigator, index, navState) => 
                                  {
+                                  _navigator = navigator;
                                          if(index > 0) {
                                           return (
                                             <TouchableHighlight
@@ -82,7 +98,7 @@ class BootStrapApp extends Component {
                 />
             }
             
-            configureScene={(route, routeStack) =>Navigator.SceneConfigs.FloatFromBottom}
+            configureScene={(route, routeStack) =>Navigator.SceneConfigs.PushFromRight}
     />
        
     );

@@ -8,37 +8,37 @@ export function randomLetters(data,selLetter){
     var tmpArray = [];
     var tmpLetters = data;
     
-    var matchingLetters = new Set(['ze','ẓwād','z̤oʾe','ẕāl']); //create set of matching letters
+    var matchingLetters = new Set(['ze','zwad','zoey','zal']); //create set of matching letters
     if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
         matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
         tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
     }
 
-    var matchingLetters = new Set(['baṛīḥa','choṭīhe']); //create set of matching letters
+    var matchingLetters = new Set(['bariha','chotihe']); //create set of matching letters
     if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
         matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
         tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
     }
 
-    var matchingLetters = new Set(['baṛīye','choṭīye']); //create set of matching letters
+    var matchingLetters = new Set(['bariye','chotiye']); //create set of matching letters
     if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
         matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
         tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
     }
 
-    var matchingLetters = new Set(['qāf','kāf']); //create set of matching letters
+    var matchingLetters = new Set(['qaf','kaf']); //create set of matching letters
     if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
         matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
         tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
     }
 
-    var matchingLetters = new Set(['te','t̤oʾe']); //create set of matching letters
+    var matchingLetters = new Set(['te','toey']); //create set of matching letters
     if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
         matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
         tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
     }
 
-    var matchingLetters = new Set(['s̱e','sīn','ṣwād']); //create set of matching letters
+    var matchingLetters = new Set(['se','sin','swad']); //create set of matching letters
     if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
         matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
         tmpLetters = tmpLetters.filter(obj => !matchingLetters.has(obj.name));
@@ -125,70 +125,70 @@ export function getLetterImage(letter_name){
                 return require('../../app/images/pe.png');                                                                 
             case "te":
                 return require('../../app/images/te.png');                                                                     
-            case "ṭe":
-                return require('../../app/images/ṭe.png');   
-            case "s̱e":
-                return require('../../app/images/s̱e.png');
-            case "jīm":
-                return require('../../app/images/jīm.png');
-            case "cīm":
-                return require('../../app/images/cīm.png');
-            case "baṛīḥa":
-                return require('../../app/images/baṛīḥa.png');
+            case "taa":
+                return require('../../app/images/taa.png');   
+            case "se":
+                return require('../../app/images/se.png');
+            case "jim":
+                return require('../../app/images/jim.png');
+            case "chim":
+                return require('../../app/images/chim.png');
+            case "bariha":
+                return require('../../app/images/bariha.png');
             case "kha":
                 return require('../../app/images/kha.png');
-            case "dāl":
-                return require('../../app/images/dāl.png');
-            case "ḍāl":
-                return require('../../app/images/ḍāl.png');
-            case "ẕāl":
-                return require('../../app/images/ẕāl.png');
+            case "dal":
+                return require('../../app/images/dal.png');
+            case "dall":
+                return require('../../app/images/dall.png');
+            case "zal":
+                return require('../../app/images/zal.png');
             case "re":
                 return require('../../app/images/re.png');
-            case "ṛe":
-                return require('../../app/images/ṛe.png');
+            case "rre":
+                return require('../../app/images/rre.png');
             case "ze":
                 return require('../../app/images/ze.png');
             case "zhe":
                 return require('../../app/images/zhe.png');
-            case "sīn":
-                return require('../../app/images/sīn.png');
-            case "shīn":
-                return require('../../app/images/shīn.png');
-            case "ṣwād":
-                return require('../../app/images/ṣwād.png');
-            case "ẓwād":
-                return require('../../app/images/ẓwād.png');
-            case "t̤oʾe":
-                return require('../../app/images/t̤oʾe.png');
-            case "z̤oʾe":
-                return require('../../app/images/z̤oʾe.png');
-            case "ʿain":
-                return require('../../app/images/ʿain.png');
+            case "sin":
+                return require('../../app/images/sin.png');
+            case "shin":
+                return require('../../app/images/shin.png');
+            case "swad":
+                return require('../../app/images/swad.png');
+            case "zwad":
+                return require('../../app/images/zwad.png');
+            case "toey":
+                return require('../../app/images/toey.png');
+            case "zoey":
+                return require('../../app/images/zoey.png');
+            case "ain":
+                return require('../../app/images/ain.png');
             case "ghain":
                 return require('../../app/images/ghain.png');
             case "fe":
                 return require('../../app/images/fe.png');
-            case "qāf":
-                return require('../../app/images/qāf.png');
-            case "kāf":
-                return require('../../app/images/kāf.png');
-            case "gāf":
-                return require('../../app/images/gāf.png');
-            case "lām":
-                return require('../../app/images/lām.png');
-            case "mīm":
-                return require('../../app/images/mīm.png');
-            case "nūn":
-                return require('../../app/images/nūn.png');
-            case "choṭīhe":
-                return require('../../app/images/choṭīhe.png');
-            case "wāʾo":
-                return require('../../app/images/wāʾo.png');
-            case "choṭīye":
-                return require('../../app/images/choṭīye.png');
-            case "baṛīye":
-                return require('../../app/images/baṛīye.png');                                                                                                               
+            case "qaf":
+                return require('../../app/images/qaf.png');
+            case "kaf":
+                return require('../../app/images/kaf.png');
+            case "gaf":
+                return require('../../app/images/gaf.png');
+            case "lam":
+                return require('../../app/images/lam.png');
+            case "mim":
+                return require('../../app/images/mim.png');
+            case "nun":
+                return require('../../app/images/nun.png');
+            case "chotihe":
+                return require('../../app/images/chotihe.png');
+            case "wao":
+                return require('../../app/images/wao.png');
+            case "chotiye":
+                return require('../../app/images/chotiye.png');
+            case "bariye":
+                return require('../../app/images/bariye.png');                                                                                                               
             default:
                 return require('../../app/images/be.png');
         }

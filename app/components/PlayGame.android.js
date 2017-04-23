@@ -103,6 +103,7 @@ export default class PlayGame extends Component {
   render() {
     var randomSelectedLetter = this.RANDOM_SELECTED_LETTER;
     var randLetters =  shuffle(randomLetters(Globals.URDU_ALPHABETS,randomSelectedLetter));   
+    console.log(JSON.stringify(randLetters));
     // play new sound if last option was correct
     if(this.state.LastResult){
                 console.log('i am in render');
