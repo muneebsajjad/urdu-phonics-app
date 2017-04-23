@@ -19,6 +19,7 @@ export default class LearnUrdu extends Component {
           }
     
  repeatSound(letterObj){
+        console.log(JSON.stringify(letterObj));
         playSelectedLetter(letterObj.sound_name); 
     }   
   render() {
