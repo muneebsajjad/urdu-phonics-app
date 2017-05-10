@@ -83,9 +83,7 @@ export function shuffle(obj){
     return obj;
 };
 
-export function HelloChandu() {
-    return 'abc';
-}
+
 
  export function playSelectedLetter(data){        
         var letterSound = new Sound(data+'.mp3', Sound.MAIN_BUNDLE, (error) => {
