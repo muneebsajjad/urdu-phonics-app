@@ -3,7 +3,7 @@ import { View, Text, Navigator,TouchableHighlight } from 'react-native';
 
 module.exports = {
   STORE_KEY: 'a56z0fzrNpl^2',
-  BASE_URL: 'http://someurl.com',
+  BASE_URL: 'http://192.168.1.4:3000',
   SCORE_POINTS: 10,    
   URDU_STRINGS:{
     'very_good':"شاباش",
@@ -17,16 +17,20 @@ module.exports = {
         "lightgray",
         "lightgreen",
         "lightgrey",
-        "lightpink",
-        "lightsalmon",
         "lightseagreen",
         "lightskyblue",
         "lightslategray",
-        "lightslategrey",
-        "lightsteelblue",
         "lightyellow",
 
-  ],    
+  ],
+  TABLES: {
+            GAME_DATA: 'GAME_DATA',
+            LETTER_LOGS: 'LETTER_LOGS',
+          },
+  END_POINTS: [
+                {API: 'get_sync_data',TABLE: 'GAME_DATA'},
+                {API: 'get_letter_logs',TABLE: 'LETTER_LOGS'}
+              ],    
   URDU_ALPHABETS:  [
                       {
                         "name": "alif",

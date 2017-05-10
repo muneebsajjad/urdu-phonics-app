@@ -32,7 +32,7 @@ export default class LearnUrdu extends Component {
                               var screenWidth = ((Dimensions.get('window').width)/2)-5;  
                               var randomColor = Globals.COLOR[Math.floor(Math.random()*Globals.COLOR.length)];  //will be used when app is MVP
                               return <TouchableOpacity key={index} letterName={Globals.URDU_ALPHABETS[key].name} onPress={this.navigate.bind(this,'LetterDetail',Globals.URDU_ALPHABETS[key])}> 
-                                        <View style={{margin:2,borderRadius:12,flex:1,width: screenWidth, backgroundColor: randomColor}} key={index}>
+                                        <View style={{margin:2,borderRadius:12,flex:1,width: screenWidth, backgroundColor: 'lightgray',alignItems:'center',justifyContent:'center'}} key={index}>
                                                              <Image 
                                                                  style={{width: 180, height: 180,resizeMode: 'contain'}}
                                                                 source={getLetterImage(Globals.URDU_ALPHABETS[key].name)} />

@@ -65,6 +65,8 @@ export default class PlayGame extends Component {
                 this.openModal();    
             }else{
                 playSelectedLetter('wrong_sound');
+                setTimeout(() => {this.repeatSound()}, 1000)
+                
             }
             //console.log("<<<<<<<<<<<<<<<<<<<wrong Answer>>>>>>>>>>>>>>>>"+this.state.lifeCount); 
         }
@@ -78,7 +80,7 @@ export default class PlayGame extends Component {
                         LIVES : this.state.lifeCount
                       }
              console.log(">>>>>>>>>>>>>>>>>>>"+this.state.SessionId)         
-            insertData(objX,'GAME_DATA');         
+            insertData(objX,Globals.TABLES.GAME_DATA);         
     }
     
     repeatSound(){
