@@ -1,17 +1,31 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
 import { View, Text, Navigator,TouchableHighlight,TouchableOpacity,Alert,StyleSheet,Image,Dimensions } from 'react-native';
-import { randomLetters,shuffle,playSelectedLetter,getLetterImage } from '../../app/global_helpers/Helpers'
+import { randomLetters,getRandomLetter,shuffle,playSelectedLetter,getLetterImage,trackFilteredLetters,getCycleCount } from '../../app/global_helpers/Helpers'
 import Globals from '../../app/global_helpers/Globals';
 import { default as Sound } from 'react-native-sound';
 import ModalBox from '../../app/components/ModalBox';
 import {insertData,getData} from '../../app/database/DAL';
 import uuid from 'react-native-uuid';
 import DeviceInfo from 'react-native-device-info';
+ // var initalSound;
 export default class PlayGame extends Component {
-        
-        //var selectedLetter = Globals.URDU_ALPHABETS[Math.floor(Math.random()*Globals.URDU_ALPHABETS.length)];  //will be used when app is MVP
-        //add selected array
-         //static RANDOM_SELECTED_LETTER =Globals.URDU_ALPHABETS[Math.floor(Math.random()*Globals.URDU_ALPHABETS.length)]; ;
+
+  componentWillMount() {
+
+         getRandomLetter().then(x => {
+        this.RANDOM_SELECTED_LETTER = x;
+        playSelectedLetter(this.RANDOM_SELECTED_LETTER.sound_name);
+        getCycleCount().then(x=>{
+          this.setState({
+           cycleCount: x
+         });
+        })
+         this.setState({
+          isLoading: false
+        });
+     })
+   }
+
           constructor(props) {
             super(props);
             this.state = {
@@ -20,11 +34,10 @@ export default class PlayGame extends Component {
                             lifeCount : 4,
                             totalLifeCount : 4,
                             scoreCount : 0,
-                            modalVisible: false
-                         };  
-             // this.RANDOM_SELECTED_LETTER = Globals.URDU_ALPHABETS[15];               
-            this.RANDOM_SELECTED_LETTER = Globals.URDU_ALPHABETS[Math.floor(Math.random()*Globals.URDU_ALPHABETS.length)];  
-             playSelectedLetter(this.RANDOM_SELECTED_LETTER.sound_name);       
+                            modalVisible: false,
+                            isLoading:true,
+                         };
+
           }
 
           _handleAppStateChange = (nextAppState) => {
@@ -39,36 +52,49 @@ export default class PlayGame extends Component {
            closeModal = () => {
               this.setState({modalVisible: false});
            }
-           
+
         navigate(routName){
         this.props.navigator.push({
-             name:  routName
+             name:  routNamer
                 })
             }
-        
-    onPressButton(chosenLetter,correctLetter) {
+
+    async onPressButton(chosenLetter,correctLetter) {
         //alert(correctLetter.name+"You tapped the button!"+chosenLetter);
         let isCorrect = 0;
-        if(chosenLetter == correctLetter.name){            
-            playSelectedLetter('correct_sound');      
+        if(chosenLetter == correctLetter.name){
             isCorrect = 1;
             this.state.LastResult = true;
-            this.RANDOM_SELECTED_LETTER = Globals.URDU_ALPHABETS[Math.floor(Math.random()*Globals.URDU_ALPHABETS.length)];  
-            this.setState({ scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS });          
+            await trackFilteredLetters(correctLetter).then((result) => {
+              console.log('TRACKING IS DONE');
+            })
+            // this.RANDOM_SELECTED_LETTER = getRandomLetter();
+             getRandomLetter().then(x => {
+              this.RANDOM_SELECTED_LETTER = x;
+              //this.setState({ scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS });
+                getCycleCount().then(x=>{
+                    //playSelectedLetter('correct_sound');
+                  this.setState({
+                   cycleCount: x,
+                   scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS
+                 });
+                }).catch((error) => console.warn("fetch error:", error))
+            });
+
         }else{
                 //lost life
                 this.state.LastResult = false;
                 this.setState({ lifeCount: --this.state.lifeCount });
-            
+
             if(this.state.lifeCount <= 0){
                 playSelectedLetter('result');
-                this.openModal();    
+                this.openModal();
             }else{
                 playSelectedLetter('wrong_sound');
                 setTimeout(() => {this.repeatSound()}, 1000)
-                
+
             }
-            //console.log("<<<<<<<<<<<<<<<<<<<wrong Answer>>>>>>>>>>>>>>>>"+this.state.lifeCount); 
+            //console.log("<<<<<<<<<<<<<<<<<<<wrong Answer>>>>>>>>>>>>>>>>"+this.state.lifeCount);
         }
           var objX = {
                         SESSION_ID : this.state.SessionId,
@@ -79,16 +105,16 @@ export default class PlayGame extends Component {
                         SCORE : this.state.scoreCount,
                         LIVES : this.state.lifeCount
                       }
-             console.log(">>>>>>>>>>>>>>>>>>>"+this.state.SessionId)         
-            insertData(objX,Globals.TABLES.GAME_DATA);         
+             console.log(">>>>>>>>>>>>>>>>>>>"+this.state.SessionId)
+            insertData(objX,Globals.TABLES.GAME_DATA);
     }
-    
+
     repeatSound(){
-        playSelectedLetter(this.RANDOM_SELECTED_LETTER.sound_name); 
+        playSelectedLetter(this.RANDOM_SELECTED_LETTER.sound_name);
     }
-    
+
     calculateLifes(){
-        var remainingLifes = [];  
+        var remainingLifes = [];
         for(var i = 0; i < this.state.lifeCount; i++) {
                                     remainingLifes.push(<Image  key = {i} style={play_styles.life_count}
                                     source={require('../../app/images/life_on.png')} />
@@ -101,53 +127,58 @@ export default class PlayGame extends Component {
                                 }
         return remainingLifes;
     }
-    
+
   render() {
+    if (this.state.isLoading) {
+      return <View><Text>Loading...</Text></View>;
+    }
     var randomSelectedLetter = this.RANDOM_SELECTED_LETTER;
-    var randLetters =  shuffle(randomLetters(Globals.URDU_ALPHABETS,randomSelectedLetter));   
-    console.log(JSON.stringify(randLetters));
+    var randLetters =  shuffle(randomLetters(Globals.URDU_ALPHABETS,randomSelectedLetter));
+    // console.log(JSON.stringify(randLetters));
     // play new sound if last option was correct
     if(this.state.LastResult){
                 console.log('i am in render');
-                playSelectedLetter(randomSelectedLetter.sound_name);     
-            }  
+                playSelectedLetter(randomSelectedLetter.sound_name);
+            }
     var drawLifes = this.calculateLifes();
-    return (         
-        <View style={play_styles.main_container}>  
+    return (
+        <View style={play_styles.main_container}>
                 <TouchableOpacity onPress={this.repeatSound.bind(this)} style={{flexDirection: 'row'}}>
                     <View style={play_styles.speaker}>
                         <Image style={play_styles.speak_sound}
                         source={require('../../app/images/speaker.png')} />
                         <View style={{flex:1,flexDirection: 'row'}}>
                             <View style={play_styles.life_count_left}>
-                                {drawLifes} 
+                                {drawLifes}
                             </View>
+                            <Text style={play_styles.cycle_count}>{this.state.cycleCount}</Text>
                             <View style={play_styles.score_count_right}>
                                 <Text style={play_styles.score_count_text} >Score : {this.state.scoreCount}</Text>
+
                             </View>
-                        </View> 
+                        </View>
                     </View>
                 </TouchableOpacity>
-        
+
                 <View style={play_styles.option_box}>
-                    
+
                      {Object.keys(randLetters).map((key,index) => {
-                           var screenWidth = ((Dimensions.get('window').width)/2)-5;                           
+                           var screenWidth = ((Dimensions.get('window').width)/2)-5;
                            var randomColor = Globals.COLOR[Math.floor(Math.random()*Globals.COLOR.length)];  //will be used when app is MVP
-                           return <TouchableOpacity key={index} letterName={randLetters[key].name} onPress={this.onPressButton.bind(this,randLetters[key].name,randomSelectedLetter)} > 
+                           return <TouchableOpacity key={index} letterName={randLetters[key].name} onPress={this.onPressButton.bind(this,randLetters[key].name,randomSelectedLetter)} >
                                         <View style={{margin:2,borderRadius:12,flex:1,width: screenWidth, backgroundColor: randomColor,alignItems:'center',justifyContent:'center'}} key={index}>
-                                            <Image 
+                                            <Image
                                                  style={{width: 160, height: 160,resizeMode: 'contain'}}
                                                 source={getLetterImage(randLetters[key].name)} />
-                                            </View> 
-                                  </TouchableOpacity>                                                   
+                                            </View>
+                                  </TouchableOpacity>
                         }
                     )}
-                </View>                        
-               <ModalBox modalVisible= {this.state.modalVisible} openModal = {this.openModal} closeModal = {this.closeModal} finalScore={this.state.scoreCount} navigator={this.props.navigator} />   
+                </View>
+               <ModalBox modalVisible= {this.state.modalVisible} openModal = {this.openModal} closeModal = {this.closeModal} finalScore={this.state.scoreCount} navigator={this.props.navigator} />
         </View>
-         
-        
+
+
     );
 
   }
@@ -162,20 +193,22 @@ var play_styles = StyleSheet.create({
         },
   option_box:{
     flex: 1, flexDirection: 'row', flexWrap:'wrap', alignItems: 'center'
-  },    
+  },
   learn_text:{
     fontWeight: '500',
     marginTop: 0,
-    fontFamily:'Lobster',  
+    fontFamily:'Lobster',
   	marginTop:4,
     fontSize:16,
-    textAlignVertical:'center'  
+    textAlignVertical:'center'
   },
    speak_sound:{
        width: 120, height: 120,  resizeMode: 'center'
    },
    life_count:{
        width: 25, height: 25,  resizeMode: 'center',marginLeft:5
+   },cycle_count:{
+       color:'#F2BC3B'
    },
     life_count_left:{
         flex: 1,flexDirection: 'row'
@@ -186,7 +219,7 @@ var play_styles = StyleSheet.create({
     score_count_text:{
         alignSelf:'flex-end',marginRight:5,fontWeight:'900',fontSize:19,textShadowOffset:{width: 1, height: 1},color:'#27ae60',textShadowColor:'#2ecc71'
     }
-    
+
 })
 
 //AppRegistry.registerComponent('UrduLearn', () => LandingPage);

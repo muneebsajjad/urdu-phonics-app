@@ -25,20 +25,20 @@ function populateDB(tx) {
     tx.executeSql('CREATE TABLE IF NOT EXISTS LETTER_LOGS (ID INTEGER PRIMARY KEY AUTOINCREMENT,DEVICE_ID TEXT NOT NULL,SOUND_PLAYED TEXT NOT NULL,TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
 }
 
-export function insertData(data,table){    
+export function insertData(data,table){
            db.transaction(function (tx) {
           var columns = new Array();
           var values = new Array();
-          var valuesQuestionMark = new Array();       
+          var valuesQuestionMark = new Array();
           for (var k in data) {
                 if (data.hasOwnProperty(k)) {
                   columns.push(k);
                   values.push(data[k]);
-                  valuesQuestionMark.push("?");    
+                  valuesQuestionMark.push("?");
                 }
             }
         var query = "INSERT INTO "+table+" ("+columns.join(',')+") VALUES("+valuesQuestionMark.join(',')+")";
-        console.log(query);
+        // console.log(query);
 
         tx.executeSql(query, values, function(tx, res) {
             console.log("insertId: " + res.insertId + " -- probably 1");
@@ -53,13 +53,13 @@ export function insertData(data,table){
     }, function() {
         console.log('transaction ok');
     });
-    
+
 }
 
 export function getData() {
         Object.keys(Globals.END_POINTS).forEach(function (key) {
         let obj = Globals.END_POINTS[key];
-        
+
         db.transaction((tx) => {
             tx.executeSql(`SELECT * FROM ${obj.TABLE}`, [], (tx, results) => {
             console.log("Query completed");
@@ -99,11 +99,11 @@ export function getData() {
                                 .catch((error) => {
                                     console.error(error);
                                 });
-                        }).catch(error => { 
-                          console.error("No Network connectivity::"+error); 
+                        }).catch(error => {
+                          console.error("No Network connectivity::"+error);
                         });
                     }else{
-                        console.log('Network is offline');      
+                        console.log('Network is offline');
                     }
                 });
             } else {
@@ -114,4 +114,3 @@ export function getData() {
 
 });
 }
-
