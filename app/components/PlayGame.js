@@ -64,7 +64,7 @@ export default class PlayGame extends Component {
         let isCorrect = 0;
         if(chosenLetter == correctLetter.name){
             isCorrect = 1;
-            this.state.LastResult = true;
+            // this.state.LastResult = true;
             await trackFilteredLetters(correctLetter).then((result) => {
               console.log('TRACKING IS DONE');
             })
@@ -76,6 +76,7 @@ export default class PlayGame extends Component {
                     //playSelectedLetter('correct_sound');
                   this.setState({
                    cycleCount: x,
+                   LastResult: true,
                    scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS
                  });
                 }).catch((error) => console.warn("fetch error:", error))
@@ -138,7 +139,9 @@ export default class PlayGame extends Component {
     // play new sound if last option was correct
     if(this.state.LastResult){
                 console.log('i am in render');
-                playSelectedLetter(randomSelectedLetter.sound_name);
+                  playSelectedLetter('correct_sound');
+                  setTimeout(() => {playSelectedLetter(randomSelectedLetter.sound_name)}, 1000)
+
             }
     var drawLifes = this.calculateLifes();
     return (

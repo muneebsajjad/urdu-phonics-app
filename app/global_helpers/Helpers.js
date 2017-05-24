@@ -172,13 +172,13 @@ export async function trackFilteredLetters(randLetter) {
               if (error) {
                 console.log('failed to load the sound', error);
               } else { // loaded successfully
-                gSoundInstance = letterSound
+                //gSoundInstance = letterSound
                     console.log("<<<<<<<<<<<<<<<<< "+letterSound.isLoaded());
                     console.log('duration in seconds: ' + letterSound.getDuration() +
                     'number of channels: ' + letterSound.getNumberOfChannels());
                         // Play the sound with an onEnd callback
                         //gSoundInstance.stop();
-                        letterSound.setVolume(1)
+                        letterSound.setVolume(1);
                         letterSound.play((success) => {
                           if (success) {
                             console.log('successfully finished playing'+'--->'+data);
