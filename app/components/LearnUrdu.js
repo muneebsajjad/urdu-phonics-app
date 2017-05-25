@@ -1,13 +1,14 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
 import { View, Text, Navigator,TouchableHighlight,TouchableOpacity,ScrollView,StyleSheet,Image,Dimensions } from 'react-native';
 import Globals from '../../app/global_helpers/Globals';
 import { getLetterImage } from '../../app/global_helpers/Helpers'
+import {insertData,getData} from '../../app/database/DAL';
 export default class LearnUrdu extends Component {
-    
-     static TMP_COUNT = [];            
+
+     static TMP_COUNT = [];
       constructor(props) {
-        super(props);        
-        this.state = { secondEnterance : 0 };     
+        super(props);
+        this.state = { secondEnterance : 0 };
       }
        navigate(routName,letterObj){
         this.props.navigator.push({
@@ -15,32 +16,32 @@ export default class LearnUrdu extends Component {
              letterObj: letterObj
         })
     }
-    
-     _handleAppStateChange = (nextAppState) => {
-            if(nextAppState =='background'){
-                getData();
-            }
-          }
-          
+
+    //  _handleAppStateChange = (nextAppState) => {
+    //         if(nextAppState =='background'){
+    //             getData();
+    //         }
+    //       }
+
   render() {
-    return (  
-        <ScrollView>    
+    return (
+        <ScrollView>
         <View style={learn_styles.main_container}>
-                    
-                    <View style={learn_styles.option_box}>  
+
+                    <View style={learn_styles.option_box}>
                     {Object.keys(Globals.URDU_ALPHABETS).map((key,index) => {
-                              var screenWidth = ((Dimensions.get('window').width)/2)-5;  
+                              var screenWidth = ((Dimensions.get('window').width)/2)-5;
                               var randomColor = Globals.COLOR[Math.floor(Math.random()*Globals.COLOR.length)];  //will be used when app is MVP
-                              return <TouchableOpacity key={index} letterName={Globals.URDU_ALPHABETS[key].name} onPress={this.navigate.bind(this,'LetterDetail',Globals.URDU_ALPHABETS[key])}> 
-                                        <View style={{margin:2,borderRadius:12,flex:1,width: screenWidth, backgroundColor: 'lightgray',alignItems:'center',justifyContent:'center'}} key={index}>
-                                                             <Image 
+                              return <TouchableOpacity key={index} letterName={Globals.URDU_ALPHABETS[key].name} onPress={this.navigate.bind(this,'LetterDetail',Globals.URDU_ALPHABETS[key])}>
+                                        <View style={{margin:2,borderRadius:12,flex:1,width: screenWidth, backgroundColor: randomColor,alignItems:'center',justifyContent:'center'}} key={index}>
+                                                             <Image
                                                                  style={{width: 180, height: 180,resizeMode: 'contain'}}
                                                                 source={getLetterImage(Globals.URDU_ALPHABETS[key].name)} />
-                                                             </View> 
-                                  </TouchableOpacity>      
-                        })} 
+                                                             </View>
+                                  </TouchableOpacity>
+                        })}
                   </View>
-                 </View>                  
+                 </View>
         </ScrollView>
     );
   }

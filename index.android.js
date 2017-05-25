@@ -29,9 +29,9 @@ var _navigator;
 syncUserLog();
 
 class BootStrapApp extends Component {
-    
-    
-      componentDidMount() { 
+
+
+      componentDidMount() {
         SplashScreen.hide();
         AppState.addEventListener('change', this._handleAppStateChange);
          BackAndroid.addEventListener('hardwareBackPress', function() {
@@ -42,38 +42,39 @@ class BootStrapApp extends Component {
                         return true;
           });
          }
-     componentWillUnmount() { 
-        AppState.removeEventListener('change', this._handleAppStateChange); 
+     componentWillUnmount() {
+        AppState.removeEventListener('change', this._handleAppStateChange);
       }
 
 
 
     _handleAppStateChange = (nextAppState) => {
             if(nextAppState =='background'){
+              console.log(`CALLED FROM HERE`);
                 getData();
             }
           }
     renderScene(route, navigator){
-             
+
         if(route.name == 'LandingPage'){
-            return <LandingPage navigator={navigator} /> 
+            return <LandingPage navigator={navigator} />
         }else if(route.name == 'PLayGame'){
-            return <PlayGame navigator={navigator}/> 
+            return <PlayGame navigator={navigator}/>
         }else if(route.name == 'LearnUrdu'){
-            return <LearnUrdu navigator={navigator}/> 
+            return <LearnUrdu navigator={navigator}/>
         }else if(route.name == 'LetterDetail'){
-            return <LetterDetail navigator={navigator} letterObj={route.letterObj}/> 
+            return <LetterDetail navigator={navigator} letterObj={route.letterObj}/>
         }
     }
   render() {
     return (
-        // <LandingPage />      
+        // <LandingPage />
     <Navigator initialRoute={{name: 'LandingPage'}}
         renderScene={this.renderScene.bind(this)}
-            
-                 navigationBar={<Navigator.NavigationBar 
-                    routeMapper={{ 
-                                LeftButton: (route, navigator, index, navState) => 
+
+                 navigationBar={<Navigator.NavigationBar
+                    routeMapper={{
+                                LeftButton: (route, navigator, index, navState) =>
                                  {
                                   _navigator = navigator;
                                          if(index > 0) {
@@ -85,30 +86,30 @@ class BootStrapApp extends Component {
                                             </TouchableHighlight>
                                         )}else { return null }
                                 },
-                    RightButton: (route, navigator, index, navState) => 
+                    RightButton: (route, navigator, index, navState) =>
                                  { return (<Text></Text>
                                 )},
-                    Title: (route, navigator, index, navState) => 
+                    Title: (route, navigator, index, navState) =>
                                  {   return (<Text >Learn Urdu</Text>
                                 )},
                                 }}
-                        // style={{backgroundColor: '#68c8ed'}}        
+                        // style={{backgroundColor: '#68c8ed'}}
                         style = {styles.navigationBar}
                          navigationStyles={Navigator.NavigationBar.StylesIOS}
                 />
             }
-            
+
             configureScene={(route, routeStack) =>Navigator.SceneConfigs.PushFromRight}
     />
-       
+
     );
   }
 };
 
 var styles = StyleSheet.create({
   mainContainer: {
-  	flex: 4, 
-    flexDirection: 'column', 
+  	flex: 4,
+    flexDirection: 'column',
     marginTop:100
   },
   leftNavButtonText: {
@@ -127,15 +128,15 @@ var styles = StyleSheet.create({
   },
   title: {
     fontWeight: '500',
-    fontFamily:'Lobster',  
+    fontFamily:'Lobster',
   	marginTop:10,
-    marginLeft:60,  
+    marginLeft:60,
     fontSize:16,
-    textAlignVertical: 'center' 
+    textAlignVertical: 'center'
   },
   button: {
-  	height:60, 
-    marginBottom:10, 
+  	height:60,
+    marginBottom:10,
     backgroundColor: '#efefef',
     justifyContent: 'center',
     textAlign: 'center'
