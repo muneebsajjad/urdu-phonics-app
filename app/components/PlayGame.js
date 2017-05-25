@@ -40,11 +40,11 @@ export default class PlayGame extends Component {
 
           }
 
-          _handleAppStateChange = (nextAppState) => {
-            if(nextAppState =='background'){
-                getData();
-            }
-          }
+          // _handleAppStateChange = (nextAppState) => {
+          //   if(nextAppState =='background'){
+          //       getData();
+          //   }
+          // }
 
             openModal = () => {
               this.setState({modalVisible: true});
@@ -140,7 +140,7 @@ export default class PlayGame extends Component {
     if(this.state.LastResult){
                 console.log('i am in render');
                   playSelectedLetter('correct_sound');
-                  setTimeout(() => {playSelectedLetter(randomSelectedLetter.sound_name)}, 1000)
+                  setTimeout(() => {playSelectedLetter(randomSelectedLetter.sound_name)}, 1600)
 
             }
     var drawLifes = this.calculateLifes();
