@@ -3,7 +3,7 @@ import { View, Text, Navigator,TouchableHighlight } from 'react-native';
 
 module.exports = {
   STORE_KEY: 'a56z0fzrNpl^2',
-  BASE_URL: 'http://192.168.1.10:3000',
+  BASE_URL: 'http://192.168.1.5:3000',
   SCORE_POINTS: 10,
   URDU_STRINGS:{
     'very_good':"شاباش",
