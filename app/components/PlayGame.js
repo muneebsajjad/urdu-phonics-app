@@ -59,7 +59,7 @@ export default class PlayGame extends Component {
                 })
             }
 
-    async onPressButton(chosenLetter,correctLetter) {
+    async onPressButton(chosenLetter,correctLetter,optionsPresented) {
         //alert(correctLetter.name+"You tapped the button!"+chosenLetter);
         let isCorrect = 0;
         if(chosenLetter == correctLetter.name){
@@ -103,10 +103,12 @@ export default class PlayGame extends Component {
                         SOUND_PLAYED : correctLetter.name,
                         SOUND_SELECTED : chosenLetter,
                         STATUS : isCorrect,
+                        OPTIONS_PRESENTED : optionsPresented,
+                        CYCLE_COUNT : this.state.cycleCount,
                         SCORE : this.state.scoreCount,
                         LIVES : this.state.lifeCount
                       }
-             console.log(">>>>>>>>>>>>>>>>>>>"+this.state.SessionId)
+             //console.log(">>>>>>>>>DATA TO BE INSERTED>>>>>>>>>>"+)
             insertData(objX,Globals.TABLES.GAME_DATA);
     }
 
@@ -133,8 +135,16 @@ export default class PlayGame extends Component {
     if (this.state.isLoading) {
       return <View><Text>Loading...</Text></View>;
     }
+
+    var optionsPresented = [];
     var randomSelectedLetter = this.RANDOM_SELECTED_LETTER;
     var randLetters =  shuffle(randomLetters(Globals.URDU_ALPHABETS,randomSelectedLetter));
+    //gather options available for selection
+    Object.keys(randLetters).map((key,index) => {
+            optionsPresented.push(randLetters[key].name);
+    })
+    var optionsString = optionsPresented.join('|');
+    //console.log(`OPTION PRESENTED`+optionsString);
     // console.log(JSON.stringify(randLetters));
     // play new sound if last option was correct
     if(this.state.LastResult){
@@ -168,7 +178,7 @@ export default class PlayGame extends Component {
                      {Object.keys(randLetters).map((key,index) => {
                            var screenWidth = ((Dimensions.get('window').width)/2)-5;
                            var randomColor = Globals.COLOR[Math.floor(Math.random()*Globals.COLOR.length)];  //will be used when app is MVP
-                           return <TouchableOpacity key={index} letterName={randLetters[key].name} onPress={this.onPressButton.bind(this,randLetters[key].name,randomSelectedLetter)} >
+                           return <TouchableOpacity key={index} letterName={randLetters[key].name} onPress={this.onPressButton.bind(this,randLetters[key].name,randomSelectedLetter,optionsString)} >
                                         <View style={{margin:2,borderRadius:12,flex:1,width: screenWidth, backgroundColor: randomColor,alignItems:'center',justifyContent:'center'}} key={index}>
                                             <Image
                                                  style={{width: 160, height: 160,resizeMode: 'contain'}}
