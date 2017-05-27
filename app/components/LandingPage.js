@@ -1,5 +1,6 @@
-import React, { Component } from 'react'; 
-import { View, Text, Navigator,TouchableHighlight,TouchableOpacity,StyleSheet,Image } from 'react-native';
+import React, { Component } from 'react';
+import {Text, Navigator,TouchableHighlight,TouchableOpacity,StyleSheet,Image } from 'react-native';
+import { createAnimatableComponent, View } from 'react-native-animatable';
 
 export default class LandingPage extends Component {
     navigate(routName){
@@ -10,7 +11,7 @@ export default class LandingPage extends Component {
   render() {
     return (
         <Image source={require('../../app/images/bg.png')} style={Landing_styles.container}>
-         <View style={Landing_styles.main_container}>
+         <View animation="fadeInDown"  style={Landing_styles.main_container}>
              <TouchableOpacity onPress={this.navigate.bind(this,'PLayGame')}>
                 <Image source={require('../../app/images/play_game.png')} style={Landing_styles.play} />
                 <Text style={Landing_styles.play_text} >Play Game</Text>
@@ -21,7 +22,7 @@ export default class LandingPage extends Component {
              <Text style={Landing_styles.learn_text}>Learn Urdu</Text>
             </TouchableOpacity>
          </View>
-        </Image> 
+        </Image>
     );
   }
 }
