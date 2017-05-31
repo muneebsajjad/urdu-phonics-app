@@ -58,7 +58,7 @@ module.exports = {
 
                       },{
                         "name": "te",
-                          "sound_name": "tay",
+                          "sound_name": "tey",
                         "img_other":{
                             img1:"N/A"
                         },
@@ -66,7 +66,7 @@ module.exports = {
 
                       },{
                         "name": "taa",
-                        "sound_name": "tey",
+                        "sound_name": "tay",
                         "img_other":{
                             img1:"N/A"
                         },
@@ -75,7 +75,7 @@ module.exports = {
                       },
                       {
                         "name": "se",
-                        "sound_name": "sin",
+                        "sound_name": "se",
                         "img_other":{
                             img1:"N/A"
                         },
@@ -138,7 +138,7 @@ module.exports = {
                       },
                       {
                         "name": "zal",
-                        "sound_name": "ze",
+                        "sound_name": "zal",
                         "img_other":{
                             img1:"N/A"
                         },
@@ -201,7 +201,7 @@ module.exports = {
                       },
                       {
                         "name": "swad",
-                        "sound_name": "sin",
+                        "sound_name": "swad",
                         "img_other":{
                             img1:"N/A"
                         },
@@ -210,7 +210,7 @@ module.exports = {
                       },
                       {
                         "name": "zwad",
-                        "sound_name": "ze",
+                        "sound_name": "zwad",
                         "img_other":{
                             img1:"N/A"
                         },
@@ -219,7 +219,7 @@ module.exports = {
                       },
                       {
                         "name": "toey",
-                        "sound_name": "tay",
+                        "sound_name": "toey",
                         "img_other":{
                             img1:"N/A"
                         },
@@ -228,7 +228,7 @@ module.exports = {
                       },
                       {
                         "name": "zoey",
-                        "sound_name": "ze",
+                        "sound_name": "zoey",
                         "img_other":{
                             img1:"N/A"
                         },

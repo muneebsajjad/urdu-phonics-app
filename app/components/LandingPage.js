@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Text, Navigator,TouchableHighlight,TouchableOpacity,StyleSheet,Image } from 'react-native';
+import {Text,TouchableHighlight,TouchableOpacity,StyleSheet,Image } from 'react-native';
+import Navigator from 'react-native-deprecated-custom-components';
 import { createAnimatableComponent, View } from 'react-native-animatable';
 
 export default class LandingPage extends Component {

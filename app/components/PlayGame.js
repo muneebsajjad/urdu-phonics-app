@@ -69,11 +69,11 @@ export default class PlayGame extends Component {
               console.log('TRACKING IS DONE');
             })
             // this.RANDOM_SELECTED_LETTER = getRandomLetter();
-             getRandomLetter().then(x => {
+             await getRandomLetter().then(async x => {
               this.RANDOM_SELECTED_LETTER = x;
               //this.setState({ scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS });
-                getCycleCount().then(x=>{
-                    //playSelectedLetter('correct_sound');
+                await getCycleCount().then(x=>{
+                    console.log('CYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY');
                   this.setState({
                    cycleCount: x,
                    LastResult: true,
@@ -97,6 +97,11 @@ export default class PlayGame extends Component {
             }
             //console.log("<<<<<<<<<<<<<<<<<<<wrong Answer>>>>>>>>>>>>>>>>"+this.state.lifeCount);
         }
+
+        if (!this.state.cycleCount) { //if cycleCount is empty
+          this.state.cycleCount = 0;
+        }
+        console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||'+this.state.cycleCount);
           var objX = {
                         SESSION_ID : this.state.SessionId,
                         DEVICE_ID : DeviceInfo.getUniqueID(),

@@ -1,7 +1,6 @@
 package com.urdulearn;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.facebook.react.ReactApplication;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
@@ -34,7 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
             new BackgroundJobPackage(),
           new RNDeviceInfo(), // <-- New
           new RNSoundPackage(), // <-- New
-          new SQLitePluginPackage()   // register SQLite Plugin here 
+          new SQLitePluginPackage()   // register SQLite Plugin here
       );
     }
   };
