@@ -102,6 +102,7 @@ export async function getRandomLetter() {
     let cycleCount;
 
     //AsyncStorage.removeItem('RANTUL');
+    //AsyncStorage.removeItem('CYCLE_COUNT');
     try {
     await AsyncStorage.getItem('RANTUL', (err, result) => {
       console.log('I A IN TOP');

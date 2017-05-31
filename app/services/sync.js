@@ -20,7 +20,9 @@ export function syncUserLog() {
     BackgroundJob.schedule({
         jobKey: JobKey,
         period: 600000,
+        //period: 30000,
         timeout: 5000,
+        allowedInForeground:true
         //networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
     });
 

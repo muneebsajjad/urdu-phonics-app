@@ -10,7 +10,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Navigator,
   TouchableHighlight,
   BackAndroid,
   AppState
@@ -24,6 +23,7 @@ import {insertData,getData} from './app/database/DAL';
 import {syncUserLog} from './app/services/sync';
 import BackgroundJob from "react-native-background-job";
 import SplashScreen from 'react-native-splash-screen'
+import NavigationExperimental from 'react-native-deprecated-custom-components';
 
 var _navigator;
 syncUserLog();
@@ -69,10 +69,10 @@ class BootStrapApp extends Component {
   render() {
     return (
         // <LandingPage />
-    <Navigator initialRoute={{name: 'LandingPage'}}
+    <NavigationExperimental.Navigator initialRoute={{name: 'LandingPage'}}
         renderScene={this.renderScene.bind(this)}
 
-                 navigationBar={<Navigator.NavigationBar
+                 navigationBar={<NavigationExperimental.Navigator.NavigationBar
                     routeMapper={{
                                 LeftButton: (route, navigator, index, navState) =>
                                  {
@@ -95,11 +95,11 @@ class BootStrapApp extends Component {
                                 }}
                         // style={{backgroundColor: '#68c8ed'}}
                         style = {styles.navigationBar}
-                         navigationStyles={Navigator.NavigationBar.StylesIOS}
+                         navigationStyles={NavigationExperimental.Navigator.NavigationBar.StylesIOS}
                 />
             }
 
-            configureScene={(route, routeStack) =>Navigator.SceneConfigs.PushFromRight}
+            configureScene={(route, routeStack) =>NavigationExperimental.Navigator.SceneConfigs.PushFromRight}
     />
 
     );
