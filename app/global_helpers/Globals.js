@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Navigator,TouchableHighlight } from 'react-native';
 
 module.exports = {
+  G_SOUND_INSTANCE: "",
   STORE_KEY: 'a56z0fzrNpl^2',
   BASE_URL: 'http://192.168.1.5:3000',
   SCORE_POINTS: 10,

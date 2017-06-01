@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Navigator,TouchableHighlight,AsyncStorage } from 'react-native';
 import { default as Sound } from 'react-native-sound';
 import Globals from '../../app/global_helpers/Globals';
-var gSoundInstance;
+//var gSoundInstance;
 let db_random_ul = [];
 // var db_random_ul = [];
 //
@@ -164,10 +164,10 @@ export async function trackFilteredLetters(randLetter) {
 
  export function playSelectedLetter(data){
         // check gSoundInstance if set, gSoundInstance.stop, gSoundInstance.release and gSoundInstance = null;
-        console.log('THIS IS SOUND UNIT'+JSON.stringify(gSoundInstance));
-        if (gSoundInstance){
-          gSoundInstance.stop().release();
-          gSoundInstance = null;
+        console.log('THIS IS SOUND UNIT'+JSON.stringify(Globals.G_SOUND_INSTANCE));
+        if (Globals.G_SOUND_INSTANCE !== ""){
+          Globals.G_SOUND_INSTANCE.stop().release();
+          Globals.G_SOUND_INSTANCE = "";
         }
         var letterSound = new Sound(data+'.mp3', Sound.MAIN_BUNDLE, (error) => {
               if (error) {
@@ -193,7 +193,7 @@ export async function trackFilteredLetters(randLetter) {
 
 
               }
-              gSoundInstance = letterSound;
+              Globals.G_SOUND_INSTANCE = letterSound;
             });
 
 
