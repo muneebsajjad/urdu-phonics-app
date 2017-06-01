@@ -2,8 +2,29 @@ import React, { Component } from 'react';
 import {Text,TouchableHighlight,TouchableOpacity,StyleSheet,Image } from 'react-native';
 import Navigator from 'react-native-deprecated-custom-components';
 import { createAnimatableComponent, View } from 'react-native-animatable';
+import Modal from 'react-native-animated-modal'
+import {getTheme} from 'react-native-material-kit';
+const theme = getTheme();
 
 export default class LandingPage extends Component {
+
+    componentDidMount(){
+      this._showModal()
+    }
+
+    constructor(props) {
+      super(props);
+      this.state = {
+                      isModalVisible: false
+                   };
+                 }
+
+
+    _showModal = () => this.setState({ isModalVisible: true })
+
+    _hideModal = () => this.setState({ isModalVisible: false })
+
+
     navigate(routName){
         this.props.navigator.push({
              name:  routName
@@ -22,8 +43,25 @@ export default class LandingPage extends Component {
              <Image source={require('../../app/images/learn_urdu.png')} style={Landing_styles.learn} />
              <Text style={Landing_styles.learn_text}>Learn Urdu</Text>
             </TouchableOpacity>
+
+
+            <Modal isVisible={this.state.isModalVisible}>
+            <View style={theme.cardStyle}>
+                  <Image source={{uri : '../../app/images/play_game.png'}} style={theme.cardImageStyle} />
+                  <Text style={theme.cardTitleStyle}>Welcome</Text>
+                  <Text style={theme.cardContentStyle}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Mauris sagittis pellentesque lacus eleifend lacinia...
+                  </Text>
+                  <View style={theme.cardMenuStyle}><Text>yahoo</Text></View>
+                  <Text style={theme.cardActionStyle}>My Action</Text>
+                  </View>
+            </Modal>
+
          </View>
         </Image>
+
+
     );
   }
 }
