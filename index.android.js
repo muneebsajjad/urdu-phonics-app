@@ -12,7 +12,8 @@ import {
   View,
   TouchableHighlight,
   BackAndroid,
-  AppState
+  AppState,
+  Alert
 } from 'react-native';
 import LandingPage from './app/components/LandingPage';
 import PlayGame from './app/components/PlayGame';
@@ -37,6 +38,11 @@ class BootStrapApp extends Component {
          BackAndroid.addEventListener('hardwareBackPress', function() {
                       if (_navigator.getCurrentRoutes().length === 1  ) {
                            return false;
+                        }
+                        // to stop any playing sound
+                        if (Globals.G_SOUND_INSTANCE){
+                            Globals.G_SOUND_INSTANCE.stop().release();
+                            Globals.G_SOUND_INSTANCE = "";
                         }
                         _navigator.pop();
                         return true;
@@ -81,7 +87,14 @@ class BootStrapApp extends Component {
                                           return (
                                             <TouchableHighlight
                                                  underlayColor="transparent"
-                                               onPress={() => { if (index > 0) { navigator.pop() } }}>
+                                               onPress={() => { if (index > 0) {
+                                                  navigator.pop()
+                                                  // to stop any playing sound
+                                                  if (Globals.G_SOUND_INSTANCE){
+                                                      Globals.G_SOUND_INSTANCE.stop().release();
+                                                      Globals.G_SOUND_INSTANCE = "";
+                                                  }
+                                                } }}>
                                               <Text style={ styles.leftNavButtonText }>Back</Text>
                                             </TouchableHighlight>
                                         )}else { return null }
