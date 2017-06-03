@@ -21,20 +21,20 @@ export default ModalBox = (props) => {
             onRequestClose = {() => {props.navigator.replace({name:  'LandingPage'}); console.log("Modal has been closed.")}}
             >
             <View style = {styles.modal}>
-              
+
                  <Image resizeMode={Image.resizeMode.center} style={{flex:1,width:Dimensions.get('window').width,opacity:1,zIndex:999999991,resizeMode: 'contain'}} source={require('../../app/images/result.png')} >
                   <View style={{flex:4.5,justifyContent: 'flex-end', alignItems: 'center'}}>
                         <Text style={styles.final_score_count_text} >Score : {props.finalScore}</Text>
-                    </View>                                                                         
+                    </View>
                         <View style={styles.gameover_buttons}>
                              <View style={{flex: 1,flexDirection: 'row',justifyContent: 'space-around'}}>
-                                 <TouchableOpacity onPress={() => props.navigator.replace({name:  'PLayGame'})}> 
+                                 <TouchableOpacity onPress={() => props.navigator.replace({name:  'PLayGame'})}>
                                         <Image style={{marginLeft:90,width:50,height:50}} source={require('../../app/images/reload.png')} />
                                     </TouchableOpacity>
-                                <TouchableOpacity onPress={() => props.navigator.resetTo({name:  'LandingPage'})}>                                                     
+                                <TouchableOpacity onPress={() => props.navigator.resetTo({name:  'LandingPage'})}>
                                     <Image style={{marginRight:90,width:50,height:50}} source={require('../../app/images/menu.png')} />
-                                </TouchableOpacity>                                             
-                            </View>    
+                                </TouchableOpacity>
+                            </View>
                         </View>
                 </Image>
             </View>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create ({
         /* flexDirection: 'row',
         alignItems: 'center',*/
         marginTop:70,
-        
+
         flex:2
     }
 });

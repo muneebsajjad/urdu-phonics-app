@@ -10,9 +10,11 @@
     "react": "^16.0.0-alpha.6",
     "react-native": "^0.44.2",
     "react-native-animatable": "^1.2.0",
+    "react-native-animated-modal": "^1.1.0",
     "react-native-background-job": "^1.2.3",
     "react-native-deprecated-custom-components": "^0.1.0",
     "react-native-device-info": "^0.10.1",
+    "react-native-material-kit": "^0.4.1",
     "react-native-sound": "^0.10.1",
     "react-native-splash-screen": "^2.0.0",
     "react-native-sqlite-storage": "^3.1.2"

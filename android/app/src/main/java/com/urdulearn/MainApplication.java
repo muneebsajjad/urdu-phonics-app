@@ -3,6 +3,7 @@ package com.urdulearn;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.pilloxa.backgroundjob.BackgroundJobPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactMaterialKitPackage(),
             new SplashScreenReactPackage(),
             new BackgroundJobPackage(),
           new RNDeviceInfo(), // <-- New
