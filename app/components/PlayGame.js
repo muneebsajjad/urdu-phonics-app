@@ -4,17 +4,26 @@ import { randomLetters,getRandomLetter,shuffle,playSelectedLetter,getLetterImage
 import Globals from '../../app/global_helpers/Globals';
 import { default as Sound } from 'react-native-sound';
 import ModalBox from '../../app/components/ModalBox';
+import {CardModel,ResultModel} from '../../app/components/ModelsType';
 import {insertData,getData} from '../../app/database/DAL';
 import uuid from 'react-native-uuid';
 import DeviceInfo from 'react-native-device-info';
- // var initalSound;
+
+
+
 export default class PlayGame extends Component {
+
+  componentDidMount(){
+    //if (!Globals.LISTEN_FLAG) {    //temporary comented out
+        this.openModal(1)
+    //}
+  }
 
   componentWillMount() {
 
          getRandomLetter().then(x => {
         this.RANDOM_SELECTED_LETTER = x;
-        playSelectedLetter(this.RANDOM_SELECTED_LETTER.sound_name);
+        //playSelectedLetter(this.RANDOM_SELECTED_LETTER.sound_name);
         getCycleCount().then(x=>{
           this.setState({
            cycleCount: x
@@ -35,8 +44,11 @@ export default class PlayGame extends Component {
                             totalLifeCount : 4,
                             scoreCount : 0,
                             modalVisible: false,
+                            infoModelVisible: false,
+                            resultModelVisible: false,
                             isLoading:true,
                          };
+          this.modelImage = 'correct';
 
           }
 
@@ -46,12 +58,28 @@ export default class PlayGame extends Component {
           //   }
           // }
 
-            openModal = () => {
-              this.setState({modalVisible: true});
+          //models methods to show/hide game over models
+          openModal = (modelType) => {
+              if(modelType == 1){
+                this.setState({infoModelVisible: true});
+                //Globals.LISTEN_FLAG = 1;   //temporary comented out
+              }else{
+                this.setState({modalVisible: true});
+              }
            }
-           closeModal = () => {
-              this.setState({modalVisible: false});
+
+           closeModal = (modelType) => {
+             if (modelType == 1) {
+               this.setState({infoModelVisible: false});
+                playSelectedLetter(this.RANDOM_SELECTED_LETTER.sound_name);
+             }else if (modelType == 2) {
+                this.setState({resultModelVisible: false});
+             } else{
+               this.setState({modalVisible: false});
+              }
            }
+
+
 
         navigate(routName){
         this.props.navigator.push({
@@ -61,8 +89,10 @@ export default class PlayGame extends Component {
 
     async onPressButton(chosenLetter,correctLetter,optionsPresented) {
         //alert(correctLetter.name+"You tapped the button!"+chosenLetter);
+        this.modelImage = 'correct';
         let isCorrect = 0;
         if(chosenLetter == correctLetter.name){
+            this.setState({resultModelVisible: true});
             isCorrect = 1;
             // this.state.LastResult = true;
             await trackFilteredLetters(correctLetter).then((result) => {
@@ -71,18 +101,25 @@ export default class PlayGame extends Component {
             // this.RANDOM_SELECTED_LETTER = getRandomLetter();
              await getRandomLetter().then(async x => {
               this.RANDOM_SELECTED_LETTER = x;
+
+              //setTimeout(() => {this.closeModal(2)}, 1000)
               //this.setState({ scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS });
                 await getCycleCount().then(x=>{
                     console.log('CYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY');
                   this.setState({
                    cycleCount: x,
                    LastResult: true,
-                   scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS
+                   scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS,
+                   //resultModelVisible: false
                  });
+                   playSelectedLetter('correct_sound');
+                   setTimeout(() => {this.closeModal(2)}, 1000)
                 }).catch((error) => console.warn("fetch error:", error))
             });
 
         }else{
+                this.modelImage = 'wrong';
+                this.setState({resultModelVisible: true});
                 //lost life
                 this.state.LastResult = false;
                 this.setState({ lifeCount: --this.state.lifeCount });
@@ -92,7 +129,12 @@ export default class PlayGame extends Component {
                 this.openModal();
             }else{
                 playSelectedLetter('wrong_sound');
-                setTimeout(() => {this.repeatSound()}, 1000)
+                setTimeout(() => {
+                  this.closeModal(2);
+                  this.repeatSound();
+                }, 1000)
+
+                //setTimeout(() => {this.repeatSound()}, 1000)  // comented out if testing is ok remove this line
 
             }
             //console.log("<<<<<<<<<<<<<<<<<<<wrong Answer>>>>>>>>>>>>>>>>"+this.state.lifeCount);
@@ -137,6 +179,7 @@ export default class PlayGame extends Component {
     }
 
   render() {
+    let  msgstring =  'Listen the letter sound carefully and select the appropriate letter.';
     if (this.state.isLoading) {
       return <View><Text>Loading...</Text></View>;
     }
@@ -151,11 +194,12 @@ export default class PlayGame extends Component {
     var optionsString = optionsPresented.join('|');
     //console.log(`OPTION PRESENTED`+optionsString);
     // console.log(JSON.stringify(randLetters));
-    // play new sound if last option was correct
-    if(this.state.LastResult){
+    // play new sound if last option was correctResultModel
+
+    if(this.state.LastResult && !this.state.resultModelVisible){
                 console.log('i am in render');
-                  playSelectedLetter('correct_sound');
-                  setTimeout(() => {playSelectedLetter(randomSelectedLetter.sound_name)}, 1600)
+                playSelectedLetter(randomSelectedLetter.sound_name);
+                //setTimeout(() => {playSelectedLetter(randomSelectedLetter.sound_name)}, 1600)
 
             }
     var drawLifes = this.calculateLifes();
@@ -192,8 +236,11 @@ export default class PlayGame extends Component {
                                   </TouchableOpacity>
                         }
                     )}
+                    <ResultModel modalVisible= {this.state.resultModelVisible} closeModal = {this.closeModal} params = {2} msgString = {msgstring}  modelImage = {this.modelImage}/>
+                    <CardModel modalVisible= {this.state.infoModelVisible} closeModal = {this.closeModal} params = {1} msgString = {msgstring}  modelImage = "listen_carefully"/>
                 </View>
                <ModalBox modalVisible= {this.state.modalVisible} openModal = {this.openModal} closeModal = {this.closeModal} finalScore={this.state.scoreCount} navigator={this.props.navigator} />
+
         </View>
 
 

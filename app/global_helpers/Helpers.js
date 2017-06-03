@@ -281,5 +281,18 @@ export function getLetterImage(letter_name){
             default:
                 return require('../../app/images/be.png');
         }
+      }
 
-}
+      export function getModelsImages(modeImg){
+          switch (modeImg) {
+                  case "volume_up":
+                      return require('../../app/images/increase_volume.png');
+                  case "listen_carefully":
+                      return require('../../app/images/listen_image.png');
+                  case "correct":
+                      return require('../../app/images/correct.png');
+                  case "wrong":
+                      return require('../../app/images/wrong.png');
+                    break;
+              }
+            }

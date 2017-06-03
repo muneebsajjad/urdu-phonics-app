@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import {Text,TouchableHighlight,TouchableOpacity,StyleSheet,Image } from 'react-native';
 import Navigator from 'react-native-deprecated-custom-components';
+import Globals from '../../app/global_helpers/Globals';
+import {CardModel} from '../../app/components/ModelsType';
 import { createAnimatableComponent, View } from 'react-native-animatable';
-import Modal from 'react-native-animated-modal'
-import {getTheme} from 'react-native-material-kit';
-const theme = getTheme();
 
 export default class LandingPage extends Component {
 
     componentDidMount(){
-      this._showModal()
+      if (!Globals.VOLUME_FLAG) {
+          this._showModal()
+      }
+
     }
 
     constructor(props) {
@@ -20,7 +22,10 @@ export default class LandingPage extends Component {
                  }
 
 
-    _showModal = () => this.setState({ isModalVisible: true })
+    _showModal = () => {
+                        this.setState({ isModalVisible: true });
+                        Globals.VOLUME_FLAG = 1;
+                      }
 
     _hideModal = () => this.setState({ isModalVisible: false })
 
@@ -31,6 +36,7 @@ export default class LandingPage extends Component {
         })
     }
   render() {
+    let  msgstring =  'Please turn up the volume, to listen Letter sounds.';
     return (
         <Image source={require('../../app/images/bg.png')} style={Landing_styles.container}>
          <View animation="fadeInDown"  style={Landing_styles.main_container}>
@@ -43,21 +49,7 @@ export default class LandingPage extends Component {
              <Image source={require('../../app/images/learn_urdu.png')} style={Landing_styles.learn} />
              <Text style={Landing_styles.learn_text}>Learn Urdu</Text>
             </TouchableOpacity>
-
-
-            <Modal isVisible={this.state.isModalVisible}>
-            <View style={theme.cardStyle}>
-                  <Image source={{uri : '../../app/images/play_game.png'}} style={theme.cardImageStyle} />
-                  <Text style={theme.cardTitleStyle}>Welcome</Text>
-                  <Text style={theme.cardContentStyle}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Mauris sagittis pellentesque lacus eleifend lacinia...
-                  </Text>
-                  <View style={theme.cardMenuStyle}><Text>yahoo</Text></View>
-                  <Text style={theme.cardActionStyle}>My Action</Text>
-                  </View>
-            </Modal>
-
+            <CardModel modalVisible= {this.state.isModalVisible} closeModal = {this._hideModal} msgString = {msgstring}  modelImage = "volume_up"/>
          </View>
         </Image>
 
