@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Navigator,TouchableHighlight,TouchableOpacity,Alert,StyleSheet,Image,Dimensions } from 'react-native';
+import { Text, Navigator,TouchableHighlight,TouchableOpacity,Alert,StyleSheet,Image,Dimensions } from 'react-native';
 import { randomLetters,getRandomLetter,shuffle,playSelectedLetter,getLetterImage,trackFilteredLetters,getCycleCount } from '../../app/global_helpers/Helpers'
 import Globals from '../../app/global_helpers/Globals';
 import { default as Sound } from 'react-native-sound';
 import ModalBox from '../../app/components/ModalBox';
 import {CardModel,ResultModel} from '../../app/components/ModelsType';
+import { createAnimatableComponent, View } from 'react-native-animatable';
 import {insertData,getData} from '../../app/database/DAL';
 import uuid from 'react-native-uuid';
 import DeviceInfo from 'react-native-device-info';
@@ -23,6 +24,7 @@ export default class PlayGame extends Component {
 
          getRandomLetter().then(x => {
         this.RANDOM_SELECTED_LETTER = x;
+        this.SHUFFLED_OPTIONS = shuffle(randomLetters(Globals.URDU_ALPHABETS,this.RANDOM_SELECTED_LETTER));
         //playSelectedLetter(this.RANDOM_SELECTED_LETTER.sound_name);
         getCycleCount().then(x=>{
           this.setState({
@@ -39,7 +41,7 @@ export default class PlayGame extends Component {
             super(props);
             this.state = {
                             SessionId :  uuid.v4(),
-                            LastResult : false,
+                            LastResult : '',
                             lifeCount : 4,
                             totalLifeCount : 4,
                             scoreCount : 0,
@@ -101,6 +103,7 @@ export default class PlayGame extends Component {
             // this.RANDOM_SELECTED_LETTER = getRandomLetter();
              await getRandomLetter().then(async x => {
               this.RANDOM_SELECTED_LETTER = x;
+              this.SHUFFLED_OPTIONS = shuffle(randomLetters(Globals.URDU_ALPHABETS,this.RANDOM_SELECTED_LETTER));
 
               //setTimeout(() => {this.closeModal(2)}, 1000)
               //this.setState({ scoreCount: this.state.scoreCount+=Globals.SCORE_POINTS });
@@ -119,10 +122,12 @@ export default class PlayGame extends Component {
 
         }else{
                 this.modelImage = 'wrong';
-                this.setState({resultModelVisible: true});
+                //this.setState({resultModelVisible: true});
                 //lost life
-                this.state.LastResult = false;
-                this.setState({ lifeCount: --this.state.lifeCount });
+                //this.state.LastResult = false;
+                this.setState({ lifeCount: --this.state.lifeCount,
+                                LastResult: false,
+                                resultModelVisible: true });
 
             if(this.state.lifeCount <= 0){
                 playSelectedLetter('result');
@@ -186,16 +191,17 @@ export default class PlayGame extends Component {
 
     var optionsPresented = [];
     var randomSelectedLetter = this.RANDOM_SELECTED_LETTER;
-    var randLetters =  shuffle(randomLetters(Globals.URDU_ALPHABETS,randomSelectedLetter));
+    //var randLetters =  shuffle(randomLetters(Globals.URDU_ALPHABETS,randomSelectedLetter));
+    var randLetters =  this.SHUFFLED_OPTIONS
     //gather options available for selection
     Object.keys(randLetters).map((key,index) => {
             optionsPresented.push(randLetters[key].name);
     })
     var optionsString = optionsPresented.join('|');
-    //console.log(`OPTION PRESENTED`+optionsString);
+    console.log(`OPTION PRESENTED`+optionsString);
     // console.log(JSON.stringify(randLetters));
-    // play new sound if last option was correctResultModel
 
+    // play new sound if last option was correctResultModel
     if(this.state.LastResult && !this.state.resultModelVisible){
                 console.log('i am in render');
                 playSelectedLetter(randomSelectedLetter.sound_name);
@@ -227,13 +233,23 @@ export default class PlayGame extends Component {
                      {Object.keys(randLetters).map((key,index) => {
                            var screenWidth = ((Dimensions.get('window').width)/2)-5;
                            var randomColor = Globals.COLOR[Math.floor(Math.random()*Globals.COLOR.length)];  //will be used when app is MVP
-                           return <TouchableOpacity key={index} letterName={randLetters[key].name} onPress={this.onPressButton.bind(this,randLetters[key].name,randomSelectedLetter,optionsString)} >
-                                        <View style={{margin:2,borderRadius:12,flex:1,width: screenWidth, backgroundColor: randomColor,alignItems:'center',justifyContent:'center'}} key={index}>
+                           if(this.state.LastResult === false && randLetters[key].name == randomSelectedLetter.name){
+                           return (<TouchableOpacity key={index} delay={2000} letterName={randLetters[key].name} onPress={this.onPressButton.bind(this,randLetters[key].name,randomSelectedLetter,optionsString)} >
+                                        <View animation="bounce" iterationCount="infinite" style={{margin:2,borderRadius:12,flex:1,width: screenWidth, backgroundColor: randomColor,alignItems:'center',justifyContent:'center'}} key={index}>
                                             <Image
                                                  style={{width: 160, height: 160,resizeMode: 'contain'}}
                                                 source={getLetterImage(randLetters[key].name)} />
                                             </View>
-                                  </TouchableOpacity>
+                                  </TouchableOpacity>)
+                                }else{
+                                  return (<TouchableOpacity key={index} letterName={randLetters[key].name} onPress={this.onPressButton.bind(this,randLetters[key].name,randomSelectedLetter,optionsString)} >
+                                               <View style={{margin:2,borderRadius:12,flex:1,width: screenWidth, backgroundColor: randomColor,alignItems:'center',justifyContent:'center'}} key={index}>
+                                                   <Image
+                                                        style={{width: 160, height: 160,resizeMode: 'contain'}}
+                                                       source={getLetterImage(randLetters[key].name)} />
+                                                   </View>
+                                         </TouchableOpacity>)
+                                }
                         }
                     )}
                     <ResultModel modalVisible= {this.state.resultModelVisible} closeModal = {this.closeModal} params = {2} msgString = {msgstring}  modelImage = {this.modelImage}/>
