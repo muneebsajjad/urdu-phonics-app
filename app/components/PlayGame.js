@@ -184,7 +184,7 @@ export default class PlayGame extends Component {
     }
 
   render() {
-    let  msgstring =  'Listen the letter sound carefully and select the appropriate letter.';
+    let  msgstring =  'Listen to the letter sound carefully and select the appropriate letter.';
     if (this.state.isLoading) {
       return <View><Text>Loading...</Text></View>;
     }

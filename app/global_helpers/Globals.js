@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { View, Text, Navigator,TouchableHighlight } from 'react-native';
 
 module.exports = {
+  G_MODEL_VISIBILITY: 0,
   VOLUME_FLAG: 0,
   LISTEN_FLAG: 0,
   G_SOUND_INSTANCE: "",
   STORE_KEY: 'a56z0fzrNpl^2',
-  BASE_URL: 'http://192.168.1.5:3000',
+  BASE_URL: 'http://104.198.94.126:3000',
   SCORE_POINTS: 10,
   URDU_STRINGS:{
     'very_good':"شاباش",
@@ -41,7 +42,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":0
 
                       },{
                         "name": "be",
@@ -49,7 +51,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":1
 
                       },{
                         "name": "pe",
@@ -57,7 +60,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":2
 
                       },{
                         "name": "te",
@@ -65,7 +69,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":3
 
                       },{
                         "name": "taa",
@@ -73,7 +78,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":4
 
                       },
                       {
@@ -82,7 +88,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":5
 
                       },
                       {
@@ -91,7 +98,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":6
 
                       },
                       {
@@ -100,7 +108,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":7
 
                       },
                       {
@@ -109,7 +118,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":8
 
                       },
                       {
@@ -118,7 +128,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":9
 
                       },
                       {
@@ -127,7 +138,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":10
 
                       },
                       {
@@ -136,7 +148,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":11
 
                       },
                       {
@@ -145,7 +158,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":12
 
                       },
                       {
@@ -154,7 +168,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":13
 
                       },
                       {
@@ -163,7 +178,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":14
 
                       },
                       {
@@ -172,7 +188,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":15
 
                       },
                       {
@@ -181,7 +198,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":16
 
                       },
                       {
@@ -190,7 +208,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":17
 
                       },
                       {
@@ -199,7 +218,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":18
 
                       },
                       {
@@ -208,7 +228,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":19
 
                       },
                       {
@@ -217,7 +238,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":20
 
                       },
                       {
@@ -226,7 +248,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":21
 
                       },
                       {
@@ -235,7 +258,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":22
 
                       },
                       {
@@ -244,7 +268,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":23
 
                       },
                       {
@@ -253,7 +278,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":24
 
                       },
                       {
@@ -262,7 +288,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":25
 
                       },
                       {
@@ -271,7 +298,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":26
 
                       },
                       {
@@ -280,7 +308,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":27
 
                       },
                       {
@@ -289,7 +318,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":28
 
                       },
                       {
@@ -298,7 +328,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":29
 
                       },
                       {
@@ -307,7 +338,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":30
 
                       },
                       {
@@ -316,7 +348,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":31
 
                       },
                       {
@@ -325,7 +358,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":32
 
                       },
                       {
@@ -334,7 +368,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":33
 
                       },
                       {
@@ -343,7 +378,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":34
 
                       },
                       {
@@ -352,7 +388,8 @@ module.exports = {
                         "img_other":{
                             img1:"N/A"
                         },
-                        "matching":"N/A"
+                        "matching":"N/A",
+                        "slide_index":35
 
                       }
                     ],

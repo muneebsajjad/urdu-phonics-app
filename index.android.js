@@ -11,7 +11,7 @@ import {
   Text,
   View,
   TouchableHighlight,
-  BackAndroid,
+  BackHandler,
   AppState,
   Alert
 } from 'react-native';
@@ -33,9 +33,10 @@ class BootStrapApp extends Component {
 
 
       componentDidMount() {
-        SplashScreen.hide();
-        AppState.addEventListener('change', this._handleAppStateChange);
-         BackAndroid.addEventListener('hardwareBackPress', function() {
+        console.log(`I AM IN INDEX DID MOUNT`);
+         SplashScreen.hide();
+         AppState.addEventListener('change', this._handleAppStateChange);
+         BackHandler.addEventListener('hardwareBackPress', function() {
                       if (_navigator.getCurrentRoutes().length === 1  ) {
                            return false;
                         }
@@ -44,6 +45,7 @@ class BootStrapApp extends Component {
                             Globals.G_SOUND_INSTANCE.stop().release();
                             Globals.G_SOUND_INSTANCE = "";
                         }
+
                         _navigator.pop();
                         return true;
           });
@@ -56,8 +58,13 @@ class BootStrapApp extends Component {
 
     _handleAppStateChange = (nextAppState) => {
             if(nextAppState =='background'){
-              console.log(`CALLED FROM HERE`);
+              console.log(`CALLED FROM APP MINIMIZE`);
                 getData();
+                // to stop any playing sound
+                if (Globals.G_SOUND_INSTANCE){
+                    Globals.G_SOUND_INSTANCE.stop().release();
+                    Globals.G_SOUND_INSTANCE = "";
+                }
             }
           }
     renderScene(route, navigator){

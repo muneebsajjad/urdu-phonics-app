@@ -18,8 +18,8 @@ export function CardModel(props){
    return (
      <Modal isVisible={props.modalVisible} backdropColor="black" animationIn="bounceIn" animationOut="bounceOut" >
      <View  style={theme.cardStyle} >
-           <View style={{alignItems:'center'}}>
-             <Image  source={getModelsImages(props.modelImage)} style={theme.cardImageStyle} />
+           <View style={model_styles.container}>
+             <Image style={model_styles.canvas} resizeMode="contain"  source={getModelsImages(props.modelImage)} style={theme.cardImageStyle} />
            </View>
 
            <Text style={theme.cardContentStyle}>
@@ -68,3 +68,13 @@ export function ResultModel(props){
      </Modal>
    );
 }
+
+
+var model_styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',position: 'relative'
+  },
+  canvas: {
+  position: 'absolute',top: 0,left: 0,bottom: 0,right: 0
+  },
+});

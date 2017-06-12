@@ -76,10 +76,13 @@ export function getData() {
                     // console.log(`ID: ${row.ID},DEVICE_ID: ${row.DEVICE_ID}, SOUND_PLAYED: ${row.SOUND_PLAYED}, SOUND_SELECTED: ${row.SOUND_SELECTED}, TIMESTAMP: ${row.TIMESTAMP}, STATUS: ${row.STATUS}, SCORE: ${row.SCORE}, LIVES: ${row.LIVES}`);
                 }
 
-                NetInfo.fetch().done((reach) => {
-                    if (reach != 'NONE') { //check if network is on/off
+                // NetInfo.fetch().done((reach) => {
+                  // console.log('Initial: >>>>>>>>>>>>>>' + reach);
+                  //   if (reach != 'NONE') { //check if network is on/off
                         //console.log('Initial: ' + reach);
                         NetInfo.isConnected.fetch().then(isConnected => {   //check if there is network conectivity
+                          console.log('First, is ' + (isConnected ? 'online' : 'offline'));
+                          //if (isConnected) {
                             fetch(`${Globals.BASE_URL}/users/${obj.API}`, {
                                     method: 'POST',
                                     headers: {
@@ -99,13 +102,16 @@ export function getData() {
                                 .catch((error) => {
                                     console.error(error);
                                 });
+                            // }else{
+                            //     console.log(' Network is offline');
+                            // }
                         }).catch(error => {
-                          console.error("No Network connectivity::"+error);
+                          console.error("unable to resolve Network connectivity promise::"+error);
                         });
-                    }else{
-                        console.log('Network is offline');
-                    }
-                });
+                //     }else{
+                //         console.log('Network is offline');
+                //     }
+                // });
             } else {
                 console.log('No data to sync');
             }

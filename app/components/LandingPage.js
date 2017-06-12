@@ -25,9 +25,13 @@ export default class LandingPage extends Component {
     _showModal = () => {
                         this.setState({ isModalVisible: true });
                         Globals.VOLUME_FLAG = 1;
+                        Globals.G_MODEL_VISIBILITY = 1;
                       }
 
-    _hideModal = () => this.setState({ isModalVisible: false })
+    _hideModal = () => {
+              this.setState({ isModalVisible: false })
+              Globals.G_MODEL_VISIBILITY = 0;
+            }
 
 
     navigate(routName){
