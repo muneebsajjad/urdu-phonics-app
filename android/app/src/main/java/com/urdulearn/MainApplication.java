@@ -1,9 +1,9 @@
 package com.urdulearn;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.pilloxa.backgroundjob.BackgroundJobPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -30,11 +30,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactMaterialKitPackage(),
             new SplashScreenReactPackage(),
             new BackgroundJobPackage(),
           new RNDeviceInfo(), // <-- New
           new RNSoundPackage(), // <-- New
-          new SQLitePluginPackage()   // register SQLite Plugin here 
+          new SQLitePluginPackage()   // register SQLite Plugin here
       );
     }
   };

@@ -10,10 +10,10 @@ import {
   StyleSheet,
   Text,
   View,
-  Navigator,
   TouchableHighlight,
-  BackAndroid,
-  AppState
+  BackHandler,
+  AppState,
+  Alert
 } from 'react-native';
 import LandingPage from './app/components/LandingPage';
 import PlayGame from './app/components/PlayGame';
@@ -24,91 +24,112 @@ import {insertData,getData} from './app/database/DAL';
 import {syncUserLog} from './app/services/sync';
 import BackgroundJob from "react-native-background-job";
 import SplashScreen from 'react-native-splash-screen'
+import NavigationExperimental from 'react-native-deprecated-custom-components';
 
 var _navigator;
 syncUserLog();
 
 class BootStrapApp extends Component {
-    
-    
-      componentDidMount() { 
-        SplashScreen.hide();
-        AppState.addEventListener('change', this._handleAppStateChange);
-         BackAndroid.addEventListener('hardwareBackPress', function() {
+
+
+      componentDidMount() {
+        console.log(`I AM IN INDEX DID MOUNT`);
+         SplashScreen.hide();
+         AppState.addEventListener('change', this._handleAppStateChange);
+         BackHandler.addEventListener('hardwareBackPress', function() {
                       if (_navigator.getCurrentRoutes().length === 1  ) {
                            return false;
                         }
+                        // to stop any playing sound
+                        if (Globals.G_SOUND_INSTANCE){
+                            Globals.G_SOUND_INSTANCE.stop().release();
+                            Globals.G_SOUND_INSTANCE = "";
+                        }
+
                         _navigator.pop();
                         return true;
           });
          }
-     componentWillUnmount() { 
-        AppState.removeEventListener('change', this._handleAppStateChange); 
+     componentWillUnmount() {
+        AppState.removeEventListener('change', this._handleAppStateChange);
       }
 
 
 
     _handleAppStateChange = (nextAppState) => {
             if(nextAppState =='background'){
+              console.log(`CALLED FROM APP MINIMIZE`);
                 getData();
+                // to stop any playing sound
+                if (Globals.G_SOUND_INSTANCE){
+                    Globals.G_SOUND_INSTANCE.stop().release();
+                    Globals.G_SOUND_INSTANCE = "";
+                }
             }
           }
     renderScene(route, navigator){
-             
+
         if(route.name == 'LandingPage'){
-            return <LandingPage navigator={navigator} /> 
+            return <LandingPage navigator={navigator} />
         }else if(route.name == 'PLayGame'){
-            return <PlayGame navigator={navigator}/> 
+            return <PlayGame navigator={navigator}/>
         }else if(route.name == 'LearnUrdu'){
-            return <LearnUrdu navigator={navigator}/> 
+            return <LearnUrdu navigator={navigator}/>
         }else if(route.name == 'LetterDetail'){
-            return <LetterDetail navigator={navigator} letterObj={route.letterObj}/> 
+            return <LetterDetail navigator={navigator} letterObj={route.letterObj}/>
         }
     }
   render() {
     return (
-        // <LandingPage />      
-    <Navigator initialRoute={{name: 'LandingPage'}}
+        // <LandingPage />
+    <NavigationExperimental.Navigator initialRoute={{name: 'LandingPage'}}
         renderScene={this.renderScene.bind(this)}
-            
-                 navigationBar={<Navigator.NavigationBar 
-                    routeMapper={{ 
-                                LeftButton: (route, navigator, index, navState) => 
+
+                 navigationBar={<NavigationExperimental.Navigator.NavigationBar
+                    routeMapper={{
+                                LeftButton: (route, navigator, index, navState) =>
                                  {
                                   _navigator = navigator;
                                          if(index > 0) {
                                           return (
                                             <TouchableHighlight
                                                  underlayColor="transparent"
-                                               onPress={() => { if (index > 0) { navigator.pop() } }}>
+                                               onPress={() => { if (index > 0) {
+                                                  navigator.pop()
+                                                  // to stop any playing sound
+                                                  if (Globals.G_SOUND_INSTANCE){
+                                                      Globals.G_SOUND_INSTANCE.stop().release();
+                                                      Globals.G_SOUND_INSTANCE = "";
+                                                  }
+                                                } }}>
                                               <Text style={ styles.leftNavButtonText }>Back</Text>
                                             </TouchableHighlight>
                                         )}else { return null }
                                 },
-                    RightButton: (route, navigator, index, navState) => 
+                    RightButton: (route, navigator, index, navState) =>
                                  { return (<Text></Text>
                                 )},
-                    Title: (route, navigator, index, navState) => 
+                    Title: (route, navigator, index, navState) =>
                                  {   return (<Text >Learn Urdu</Text>
                                 )},
                                 }}
-                        // style={{backgroundColor: '#68c8ed'}}        
+                        // style={{backgroundColor: '#68c8ed'}}
                         style = {styles.navigationBar}
-                         navigationStyles={Navigator.NavigationBar.StylesIOS}
+                         navigationStyles={NavigationExperimental.Navigator.NavigationBar.StylesIOS}
                 />
             }
-            
-            configureScene={(route, routeStack) =>Navigator.SceneConfigs.PushFromRight}
+
+            configureScene={(route, routeStack) =>NavigationExperimental.Navigator.SceneConfigs.PushFromRight}
     />
-       
+
     );
   }
 };
 
 var styles = StyleSheet.create({
   mainContainer: {
-  	flex: 4, 
-    flexDirection: 'column', 
+  	flex: 4,
+    flexDirection: 'column',
     marginTop:100
   },
   leftNavButtonText: {
@@ -127,15 +148,15 @@ var styles = StyleSheet.create({
   },
   title: {
     fontWeight: '500',
-    fontFamily:'Lobster',  
+    fontFamily:'Lobster',
   	marginTop:10,
-    marginLeft:60,  
+    marginLeft:60,
     fontSize:16,
-    textAlignVertical: 'center' 
+    textAlignVertical: 'center'
   },
   button: {
-  	height:60, 
-    marginBottom:10, 
+  	height:60,
+    marginBottom:10,
     backgroundColor: '#efefef',
     justifyContent: 'center',
     textAlign: 'center'

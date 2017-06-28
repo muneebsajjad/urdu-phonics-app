@@ -1,13 +1,26 @@
-import React, { Component } from 'react'; 
-import { View, Text, Navigator,TouchableHighlight } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, Navigator,TouchableHighlight,AsyncStorage } from 'react-native';
 import { default as Sound } from 'react-native-sound';
-var gSoundInstance;
+import Globals from '../../app/global_helpers/Globals';
+//var gSoundInstance;
+let db_random_ul = [];
+// var db_random_ul = [];
+//
+// try {
+//   const value =  AsyncStorage.getItem('RANTUL');
+//
+//       //console.log("(((((((((((((((())))))))))))))))"+JSON.parse(value));
+//     db_random_ul = JSON.parse(value);
+//
+// } catch (error) {
+//   console.log("Error initilizing letters history");
+// }
 
 
 export function randomLetters(data,selLetter){
     var tmpArray = [];
     var tmpLetters = data;
-    
+
     var matchingLetters = new Set(['ze','zwad','zoey','zal']); //create set of matching letters
     if (matchingLetters.has(selLetter.name)) { //check if letter exist in the set
         matchingLetters.delete(selLetter.name) //if letter exist remove it from set so that we do not accedentally remove it from whole set
@@ -48,72 +61,148 @@ export function randomLetters(data,selLetter){
     var toDelete = new Set([selLetter.name]);
         tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
     tmpArray.push(selLetter);
-    
+
     //matching set
-    
+
     // console.log('>>>>>>@@>>>>>>>>>>'+JSON.stringify(tmpLetters))
 
     var letter1 = tmpLetters[Math.floor(Math.random()*tmpLetters.length)];
      tmpArray.push(letter1);
-    
+
     //deleting obj from the tmpLetters array
     var toDelete = new Set([letter1.name]);
         tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
-    
+
     var letter2 = tmpLetters[Math.floor(Math.random()*tmpLetters.length)];
       tmpArray.push(letter2);
-    
+
      //deleting obj from the tmpLetters array
     var toDelete = new Set([letter2.name]);
         tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
-    
+
     var letter3 = tmpLetters[Math.floor(Math.random()*tmpLetters.length)];
       tmpArray.push(letter3);
-    
+
      //deleting obj from the tmpLetters array
     var toDelete = new Set([letter3.name]);
         tmpLetters = tmpLetters.filter(obj => !toDelete.has(obj.name));
-    
+
     return tmpArray;
-    
+
 }
 
-export function shuffle(obj){ 
+export function shuffle(obj){
     for(var j, x, i = obj.length; i; j = Math.floor(Math.random() * i), x = obj[--i], obj[i] = obj[j], obj[j] = x);
     return obj;
 };
 
-export function HelloChandu() {
-    return 'abc';
+export async function getRandomLetter() {
+    let tmpAllUrduLetters  = Globals.URDU_ALPHABETS;
+    let randLetter
+    let cycleCount;
+
+    //AsyncStorage.removeItem('RANTUL');
+    //AsyncStorage.removeItem('CYCLE_COUNT');
+    try {
+    await AsyncStorage.getItem('RANTUL', (err, result) => {
+      console.log('I A IN TOP');
+              let excludeLetters = new Set(JSON.parse(result)); //exclude letters
+              let remainingUrduLetters = tmpAllUrduLetters.filter(obj => !excludeLetters.has(obj.name));
+              if (remainingUrduLetters.length == 0) {
+                //start counting cycles
+                //AsyncStorage.removeItem('CYCLE_COUNT');
+                 AsyncStorage.getItem('CYCLE_COUNT', (err, result) => {
+                     cycleCount = JSON.parse(result);
+                    cycleCount++
+                   AsyncStorage.setItem('CYCLE_COUNT',JSON.stringify(cycleCount), () => {
+                                           console.log('<<<<<<<<<<<<<<<<CYCLE COUNT_SET>>>>>>>>'+cycleCount);
+                     })
+                 });
+                //Reset tmp array when there is nothing left to chos from remaining letters
+                console.log(`<<<<<<<<<<<There is nothing in the Set to chose from>>>>>>>>>>>>>`);
+                //console.log('<<<<<<<<<<< '+remainingUrduLetters.length+' RANODMNESS IS OVER>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+                remainingUrduLetters = tmpAllUrduLetters;
+                 AsyncStorage.removeItem('RANTUL');
+                 db_random_ul = [];
+                 excludeLetters= [];
+              }
+
+              //console.log('EXCLUDED LETTRS =='+result);
+               console.log('REMAINING LETTRS LIST  =='+JSON.stringify(remainingUrduLetters)+'====='+'EXCLUDED LETTRS =='+result);
+              console.log("KEYS LENGHTS USED>>>>>"+db_random_ul.length+" KEYS LENGHTS REMAINING<<<<<<<"+remainingUrduLetters.length);
+              randLetter = remainingUrduLetters[Math.floor(Math.random() * remainingUrduLetters.length)]
+    });
+
+  } catch (e) {
+    console.log('AWAIT EXCEPTION'+ e.message);
+  }
+
+     console.log("LETTER AFTER AWAIT RESOLVED AS"+JSON.stringify(randLetter));
+     return randLetter;
+
 }
 
- export function playSelectedLetter(data){        
+export async function trackFilteredLetters(randLetter) {
+  await AsyncStorage.getItem('RANTUL', (err, result) => {
+    console.log(`?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????`);
+       if (result) {
+          db_random_ul = JSON.parse(result)
+          db_random_ul.push(randLetter.name)
+           AsyncStorage.setItem('RANTUL', JSON.stringify(db_random_ul), () => {
+              console.log('<<<<<<<<<<<<<<<<LETTER TRACKED>>>>>>>>'+randLetter.name);
+           })
+
+        }else {
+           db_random_ul.push(randLetter.name)
+            AsyncStorage.setItem('RANTUL', JSON.stringify(db_random_ul), () => {
+               console.log('<<<<<<<<<<<<<<<<FIRST LETTER TRACKED>>>>>>>>'+randLetter.name);
+            })
+        }
+  })
+  return true;
+}
+
+ export function playSelectedLetter(data){
+        // check gSoundInstance if set, gSoundInstance.stop, gSoundInstance.release and gSoundInstance = null;
+        console.log('THIS IS SOUND UNIT'+JSON.stringify(Globals.G_SOUND_INSTANCE));
+        if (Globals.G_SOUND_INSTANCE !== ""){
+          Globals.G_SOUND_INSTANCE.stop().release();
+          Globals.G_SOUND_INSTANCE = "";
+        }
         var letterSound = new Sound(data+'.mp3', Sound.MAIN_BUNDLE, (error) => {
-              if (error) {                  
+              if (error) {
                 console.log('failed to load the sound', error);
               } else { // loaded successfully
-                gSoundInstance = letterSound
-                  console.log("<<<<<<<<<<<<<<<<< "+letterSound.isLoaded());
-                console.log('duration in seconds: ' + letterSound.getDuration() +
+                //gSoundInstance = letterSound
+                    console.log("<<<<<<<<<<<<<<<<< "+letterSound.isLoaded());
+                    console.log('duration in seconds: ' + letterSound.getDuration() +
                     'number of channels: ' + letterSound.getNumberOfChannels());
-                        // Play the sound with an onEnd callback        
-                        gSoundInstance.stop();
-                        letterSound.setVolume(1)
+                        // Play the sound with an onEnd callback
+                        //gSoundInstance.stop();
+                        letterSound.setVolume(1);
                         letterSound.play((success) => {
-                          if (success) {              
+                          if (success) {
                             console.log('successfully finished playing'+'--->'+data);
-                              letterSound.release();
+                              // letterSound.release(); //not required.
+                              // experiment if gSoundInstance is set, then gSoundInstance.release;
                           } else {
                             console.log('playback failed due to audio decoding errors'+'--->'+data);
 
                           }
                         });
-                  
-                  
+
+
               }
+              Globals.G_SOUND_INSTANCE = letterSound;
             });
-        
+
+
     }
+
+export async function getCycleCount(){
+   const value = await AsyncStorage.getItem('CYCLE_COUNT');
+   return value;
+}
 
 export function getLetterImage(letter_name){
     switch (letter_name) {
@@ -122,11 +211,11 @@ export function getLetterImage(letter_name){
             case "be":
                 return require('../../app/images/be.png');
             case "pe":
-                return require('../../app/images/pe.png');                                                                 
+                return require('../../app/images/pe.png');
             case "te":
-                return require('../../app/images/te.png');                                                                     
+                return require('../../app/images/te.png');
             case "taa":
-                return require('../../app/images/taa.png');   
+                return require('../../app/images/taa.png');
             case "se":
                 return require('../../app/images/se.png');
             case "jim":
@@ -188,9 +277,22 @@ export function getLetterImage(letter_name){
             case "chotiye":
                 return require('../../app/images/chotiye.png');
             case "bariye":
-                return require('../../app/images/bariye.png');                                                                                                               
+                return require('../../app/images/bariye.png');
             default:
                 return require('../../app/images/be.png');
         }
-    
-}
+      }
+
+      export function getModelsImages(modeImg){
+          switch (modeImg) {
+                  case "volume_up":
+                      return require('../../app/images/increase_volume.png');
+                  case "listen_carefully":
+                      return require('../../app/images/listen_image.png');
+                  case "correct":
+                      return require('../../app/images/correct.png');
+                  case "wrong":
+                      return require('../../app/images/wrong.png');
+                    break;
+              }
+            }
