@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import {Text,TouchableHighlight,TouchableOpacity,StyleSheet,Image } from 'react-native';
+import { Text,TouchableHighlight,TouchableOpacity,StyleSheet,Image } from 'react-native';
 import Navigator from 'react-native-deprecated-custom-components';
 import Globals from '../../app/global_helpers/Globals';
 import {CardModel} from '../../app/components/ModelsType';
 import { createAnimatableComponent, View } from 'react-native-animatable';
+import { AdMobBanner, AdMobInterstitial, PublisherBanner,AdMobRewarded } from 'react-native-admob'
+
 
 export default class LandingPage extends Component {
 
